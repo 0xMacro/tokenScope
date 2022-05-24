@@ -3,7 +3,6 @@ pragma solidity ^0.8.0;
 import "@openzeppelin/contracts/utils/structs/BitMaps.sol";
 
 contract Governance {
-
     using BitMaps for BitMaps.BitMap;
 
     /*///////////////////////////////////////////////////////////////
@@ -14,15 +13,21 @@ contract Governance {
     mapping(address => mapping(uint256 => uint256)) public presentStatus;
 
     // (citizen, erc20Address) => atttibuteSet)
-    mapping(address => mapping(address => BitMaps.BitMap)) internal citizenVotes;
+    mapping(address => mapping(address => BitMaps.BitMap))
+        internal citizenVotes;
     struct Vote {
         address erc20;
         uint256 attribute;
         bool support;
     }
-    
-    enum DegreeOfConfidence{complete, majority, midway, low}
-    mapping (uint256 => DegreeOfConfidence) getDegreeOfConfidence;
+
+    enum DegreeOfConfidence {
+        complete,
+        high,
+        mid,
+        low
+    }
+    mapping(uint256 => DegreeOfConfidence) getDegreeOfConfidence;
 
     uint256 public totalCitizens;
     mapping(address => bool) public citizen;
@@ -37,11 +42,7 @@ contract Governance {
         uint256 number
     );
 
-    event NewVote(
-        address indexed erc20,
-        uint256 attribute,
-        bool support
-    );
+    event NewVote(address indexed erc20, uint256 attribute, bool support);
 
     /*///////////////////////////////////////////////////////////////
                       Setup
@@ -51,8 +52,8 @@ contract Governance {
         citizen[firstCitizen] = true;
         totalCitizens++;
         getDegreeOfConfidence[25] = DegreeOfConfidence.low;
-        getDegreeOfConfidence[50] = DegreeOfConfidence.midway;
-        getDegreeOfConfidence[80] = DegreeOfConfidence.majority;
+        getDegreeOfConfidence[50] = DegreeOfConfidence.mid;
+        getDegreeOfConfidence[80] = DegreeOfConfidence.high;
         getDegreeOfConfidence[100] = DegreeOfConfidence.complete;
     }
 
@@ -82,25 +83,29 @@ contract Governance {
                 } else {
                     presentStatus[newVotes[i].erc20][newVotes[i].attribute]--;
                 }
-                
-                emit NewVote(newVotes[i].erc20, newVotes[i].attribute, newVotes[i].support);
+
+                emit NewVote(
+                    newVotes[i].erc20,
+                    newVotes[i].attribute,
+                    newVotes[i].support
+                );
 
                 prevVote.setTo(newVotes[i].attribute, newVotes[i].support);
             }
         }
     }
 
-    function hasAttribute(address _erc20, uint256 _attribute) public returns (DegreeOfConfidence)
-    {   
-        return getDegreeOfConfidence[(presentStatus[_erc20][_attribute] * 100)/ totalCitizens];
+    function hasAttribute(address _erc20, uint256 _attribute)
+        public
+        returns (DegreeOfConfidence)
+    {
+        return
+            getDegreeOfConfidence[
+                (presentStatus[_erc20][_attribute] * 100) / totalCitizens
+            ];
     }
-
 
     /*///////////////////////////////////////////////////////////////
                       VOTING ON CITIZENSHIP
     //////////////////////////////////////////////////////////////*/
-
-
-
-
 }
