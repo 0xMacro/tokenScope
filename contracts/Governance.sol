@@ -4,21 +4,25 @@ import "@openzeppelin/contracts/utils/structs/BitMaps.sol";
 
 /// @title  Governance
 /// @notice Governance to govern the registry
+/// @dev glossary
+// Citizen : Resident of this governance system
+
 contract Governance {
     using BitMaps for BitMaps.BitMap;
     /*///////////////////////////////////////////////////////////////
                       STATE
     //////////////////////////////////////////////////////////////*/
 
-    // (erc20 address, attribute) => yesVotes
-    mapping(address => mapping(uint256 => uint256)) public presentStatus;
+    // (erc20 address, attribute) => count of yesVotes
+    mapping(address => mapping(uint256 => uint256)) public yesVotes;
 
     // (citizen, erc20Address) => atttibuteSet
     mapping(address => mapping(address => BitMaps.BitMap))
-        internal citizenVotes;
+        internal citizenVote;
+
     struct Vote {
         address erc20;
-        uint256 attribute;
+        uint256 attribute; // index
         bool support;
     }
 
@@ -31,7 +35,7 @@ contract Governance {
     mapping(uint256 => DegreeOfConfidence) getDegreeOfConfidence;
 
     uint256 public totalCitizens;
-    mapping(address => bool) public citizen;
+    mapping(address => bool) public citizens;
 
     /*///////////////////////////////////////////////////////////////
                       Events
@@ -50,7 +54,7 @@ contract Governance {
     //////////////////////////////////////////////////////////////*/
 
     constructor(address firstCitizen) {
-        citizen[firstCitizen] = true;
+        citizens[firstCitizen] = true;
         totalCitizens++;
         getDegreeOfConfidence[25] = DegreeOfConfidence.low;
         getDegreeOfConfidence[50] = DegreeOfConfidence.mid;
@@ -59,7 +63,7 @@ contract Governance {
     }
 
     modifier isCitizen() {
-        require(citizen[msg.sender] == true, "Not a citizen");
+        require(citizens[msg.sender] == true, "Not a citizen");
         _;
     }
 
@@ -82,16 +86,16 @@ contract Governance {
         uint256 newVotesLength = newVotes.length;
 
         for (uint256 i = 0; i < newVotesLength; ++i) {
-            BitMaps.BitMap storage prevVote = citizenVotes[msg.sender][
+            BitMaps.BitMap storage prevVote = citizenVote[msg.sender][
                 newVotes[i].erc20
             ];
 
             // Only change state if new vote is different from prev vote
             if (prevVote.get(newVotes[i].attribute) != newVotes[i].support) {
                 if (newVotes[i].support) {
-                    presentStatus[newVotes[i].erc20][newVotes[i].attribute]++;
+                    yesVotes[newVotes[i].erc20][newVotes[i].attribute]++;
                 } else {
-                    presentStatus[newVotes[i].erc20][newVotes[i].attribute]--;
+                    yesVotes[newVotes[i].erc20][newVotes[i].attribute]--;
                 }
 
                 emit NewVote(
@@ -117,7 +121,7 @@ contract Governance {
     {
         return
             getDegreeOfConfidence[
-                (presentStatus[_erc20][_attribute] * 100) / totalCitizens
+                (yesVotes[_erc20][_attribute] * 100) / totalCitizens
             ];
     }
 
