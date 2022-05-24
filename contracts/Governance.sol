@@ -17,8 +17,7 @@ contract Governance {
     mapping(address => mapping(uint256 => uint256)) public yesVotes;
 
     // (citizen, erc20Address) => atttibuteSet
-    mapping(address => mapping(address => BitMaps.BitMap))
-        internal citizenVote;
+    mapping(address => mapping(address => BitMaps.BitMap)) internal citizenVote;
 
     struct Vote {
         address erc20;
@@ -30,9 +29,9 @@ contract Governance {
         complete,
         high,
         mid,
-        low
+        low,
+        veryLow
     }
-    mapping(uint256 => DegreeOfConfidence) getDegreeOfConfidence;
 
     uint256 public totalCitizens;
     mapping(address => bool) public citizens;
@@ -56,10 +55,6 @@ contract Governance {
     constructor(address firstCitizen) {
         citizens[firstCitizen] = true;
         totalCitizens++;
-        getDegreeOfConfidence[25] = DegreeOfConfidence.low;
-        getDegreeOfConfidence[50] = DegreeOfConfidence.mid;
-        getDegreeOfConfidence[80] = DegreeOfConfidence.high;
-        getDegreeOfConfidence[100] = DegreeOfConfidence.complete;
     }
 
     modifier isCitizen() {
@@ -113,16 +108,20 @@ contract Governance {
     /// @dev The higher is better if you are checking for positive, lower is better for negative
     /// @param _erc20 erc20 token address
     /// @param _attribute attribute index
-    /// @return DegreeOfConfidence the degree of confidence in assertion that given erc20 has passed attribute
+    /// @return absolute absolute measure
+    /// @return relative the degree of confidence in assertion that given erc20 has passed attribute
     function hasAttribute(address _erc20, uint256 _attribute)
         public
         view
-        returns (DegreeOfConfidence)
+        returns (uint256 absolute, DegreeOfConfidence relative)
     {
-        return
-            getDegreeOfConfidence[
-                (yesVotes[_erc20][_attribute] * 100) / totalCitizens
-            ];
+        absolute = (yesVotes[_erc20][_attribute] * 100) / totalCitizens;
+
+        if (absolute <= 25) relative = DegreeOfConfidence.veryLow;
+        else if (absolute <= 50) relative = DegreeOfConfidence.low;
+        else if (absolute <= 80) relative = DegreeOfConfidence.mid;
+        else if (absolute < 100) relative = DegreeOfConfidence.high;
+        else relative = DegreeOfConfidence.complete;
     }
 
     /*///////////////////////////////////////////////////////////////
