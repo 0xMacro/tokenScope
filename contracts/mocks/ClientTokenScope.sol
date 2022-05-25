@@ -32,12 +32,12 @@ contract ClientTokenScope{
     /// @param token token address
     /// @return bool value whether the token is both mintable and burnable
     function mintableAndBurnable(address token) public view returns(bool){
-        // 4th attrivbute in the registiry => CAN_MINT
-        // 5th attrivbute in the registiry => CAN_BURN 
+        // 4th attribute in the registiry => CAN_MINT
+        // 5th attribute in the registiry => CAN_BURN 
         return registiry.factsAreValidated(token, [4, 5]);
     }
 
-    /// @notice Checks if a token is a valid ERC20 that can be pausable
+    /// @notice Checks if a token is a valid ERC20 that can be paused
     ///         Uses "factSetIsValidated" function of TokenScope to query multiple attributes from registery using an integer corresponding to binary represantation of bits
     /// @param token token address
     /// @return bool value whether the token contract is a pausable valid ERC20 contract
