@@ -72,10 +72,10 @@ contract Governor {
     error AlreadyMember();
     error NotAMember();
 
-    constructor(address[] memory foundingFathers) {
-        uint256 length = foundingFathers.length;
+    constructor(address[] memory foundingMembers) {
+        uint256 length = foundingMembers.length;
         for (uint256 i = 0; i < length; ++i) {
-            _addMember(foundingFathers[i]);
+            _addMember(foundingMembers[i]);
         }
     }
 
@@ -277,7 +277,7 @@ contract Governor {
 
     function changeQuorum(uint128 _newQuorum) external {
         if (msg.sender != address(this)) revert NotAllowed();
-        if (_newQuorum > 100) revert InvalidQuorum();
+        if (_newQuorum < 50 || _newQuorum > 100) revert InvalidQuorum();
 
         emit QuorumChanged(quorum, _newQuorum);
         quorum = _newQuorum;
