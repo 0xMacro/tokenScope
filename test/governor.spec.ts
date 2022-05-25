@@ -2,15 +2,17 @@ import { expect } from "chai";
 import { ethers } from "hardhat";
 import { utils, BigNumber } from "ethers";
 import type { SignerWithAddress } from "@nomiclabs/hardhat-ethers/dist/src/signer-with-address";
-import type { Governor } from "../typechain/Governor";
+import type { Governor, ERC20Registry } from "../typechain/";
 
 describe("Governor ", function () {
   let governor: Governor;
+  let registry: ERC20Registry;
   let citizen1: SignerWithAddress;
   let citizen2: SignerWithAddress;
   let citizen3: SignerWithAddress;
   let citizen4: SignerWithAddress;
   let citizen5: SignerWithAddress;
+
   const ERC20_1 = "0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48";
   const ERC20_2 = "0x1f9840a85d5af5bf1d1762f925bdaddc4201f984";
   before(async function () {
@@ -26,6 +28,10 @@ describe("Governor ", function () {
       ])
     );
     await governor.deployed();
+
+    const registryFactory = await ethers.getContractFactory("ERC20Registry");
+    registry = <ERC20Registry>await registryFactory.deploy(governor.address);
+    await registry.deployed();
   });
 
   it("Setup Check ", async function () {
@@ -140,5 +146,57 @@ describe("Governor ", function () {
     await governor.connect(citizen3).castVote(proposalId, true);
     await governor.execute([governor.address], [0], [calldata], "changeQ50");
     expect(await governor.quorum()).to.eq(50);
+  });
+
+  it("create fact", async function () {
+    expect(await registry.highwaterFact()).to.eq(1);
+    expect(await registry.owner()).to.eq(governor.address);
+    const calldata =
+      "0x244828fe" +
+      "0000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000f69734665654f6e5472616e736665720000000000000000000000000000000000";
+
+    const proposalId = await governor.hashProposal(
+      [registry.address],
+      [0],
+      [calldata],
+      "createFact"
+    );
+    await governor.propose([registry.address], [0], [calldata], "createFact");
+    await governor.castVote(proposalId, true);
+    await governor.connect(citizen2).castVote(proposalId, true);
+
+    await governor.execute([registry.address], [0], [calldata], "createFact");
+    expect(await registry.highwaterFact()).to.eq(2);
+  });
+
+  it("addUpdateERC20", async function () {
+    expect(await registry.factSetIsValidated(ERC20_1, 7)).to.eq(false);
+    const calldata =
+      "0x265eb5b7" +
+      "000000000000000000000000a0b86991c6218b36c1d19d4a2e9eb0ce3606eb48" +
+      "0000000000000000000000000000000000000000000000000000000000000007";
+
+    const proposalId = await governor.hashProposal(
+      [registry.address],
+      [0],
+      [calldata],
+      "addUpdateERC20"
+    );
+    await governor.propose(
+      [registry.address],
+      [0],
+      [calldata],
+      "addUpdateERC20"
+    );
+    await governor.castVote(proposalId, true);
+    await governor.connect(citizen2).castVote(proposalId, true);
+
+    await governor.execute(
+      [registry.address],
+      [0],
+      [calldata],
+      "addUpdateERC20"
+    );
+    expect(await registry.factSetIsValidated(ERC20_1, 7)).to.eq(true);
   });
 });
