@@ -1,7 +1,29 @@
 //SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.0;
 
-import "hardhat/console.sol";
+// Governance Rules
+
+// Proposal Creation:
+// Anyone can create proposal
+// Duplicate proposals are not allowed
+
+// Members:
+// In the constructor, founding members are added.
+// Anyone can create a proposal to add new member or remove existing member.
+
+// Voting
+// Only members can vote
+// There is no castBySig or delegation; each member has to cast a vote by themselves
+// All votes carry equal weight
+// For a proposal to be passed
+//    for votes >= 0.75 * total members
+// We don't keep track of against votes as it doesn't matter, in our case.
+// Because if for votes are > 75 out of 100, against votes are always going to be less than that
+// Inactive vote is a superset of against vote, which additionally allows one to change their vote to true
+
+// Proposal Execution
+// Anyone can execute a proposal once passed
+// Each proposal can be executed only once
 
 contract Governor {
     // constants
@@ -115,31 +137,44 @@ contract Governor {
     function hashProposal(
         address[] memory targets,
         uint256[] memory values,
-        bytes[] memory calldatas
+        bytes[] memory calldatas,
+        string memory description
     ) public pure returns (uint256) {
-        return uint256(keccak256(abi.encode(targets, values, calldatas)));
+        return
+            uint256(
+                keccak256(abi.encode(targets, values, calldatas, description))
+            );
     }
 
     function isValidProposal(
         address[] memory targets,
         uint256[] memory values,
-        bytes[] memory calldatas
-    ) public pure returns (uint256 id) {
+        bytes[] memory calldatas,
+        string memory description
+    ) public view returns (uint256 id) {
         if (targets.length != values.length)
             revert InvalidProposal("targets!=values");
         if (targets.length != calldatas.length)
             revert InvalidProposal("targets!=calldatas");
         if (targets.length == 0) revert InvalidProposal("empty");
 
-        id = hashProposal(targets, values, calldatas);
+        id = hashProposal(targets, values, calldatas, description);
+
+        if (proposals[id].start != 0) revert InvalidProposal("Duplicate");
     }
 
     function propose(
         address[] memory targets,
         uint256[] memory values,
-        bytes[] memory calldatas
+        bytes[] memory calldatas,
+        string memory description
     ) external returns (uint256) {
-        uint256 proposalId = isValidProposal(targets, values, calldatas);
+        uint256 proposalId = isValidProposal(
+            targets,
+            values,
+            calldatas,
+            description
+        );
         uint256 _start = block.timestamp;
         uint256 _end = _start + VOTING_PERIOD;
         proposals[proposalId].start = uint128(_start);
@@ -160,9 +195,15 @@ contract Governor {
     function execute(
         address[] memory targets,
         uint256[] memory values,
-        bytes[] memory calldatas
+        bytes[] memory calldatas,
+        string memory description
     ) external {
-        uint256 proposalId = hashProposal(targets, values, calldatas);
+        uint256 proposalId = hashProposal(
+            targets,
+            values,
+            calldatas,
+            description
+        );
         // Check
         if (state(proposalId) != ProposalState.Succeeded)
             revert NotSucceededOrAlreadyExecuted();

@@ -47,12 +47,16 @@ describe("Governor ", function () {
     const proposalId = await governor.hashProposal(
       [governor.address],
       [0],
-      [calldata]
+      [calldata],
+      "addCitzen4"
     );
     expect(governor.state(proposalId)).revertedWith(
       'InvalidProposal("NotDefined")'
     );
-    await governor.propose([governor.address], [0], [calldata]);
+    await governor.propose([governor.address], [0], [calldata], "addCitzen4");
+    expect(
+      governor.propose([governor.address], [0], [calldata], "addCitzen4")
+    ).revertedWith('InvalidProposal("Duplicate")');
     expect(await governor.state(proposalId)).to.eq(1);
     const proposal = await governor.proposals(proposalId);
     expect(proposal.end).to.eq(proposal.start.add(30 * 60 * 60 * 24));
@@ -71,12 +75,12 @@ describe("Governor ", function () {
     expect(await governor.state(proposalId)).to.eq(2);
 
     // Execute
-    await governor.execute([governor.address], [0], [calldata]);
+    await governor.execute([governor.address], [0], [calldata], "addCitzen4");
     expect(await governor.members(citizen5.address)).to.eq(true);
     expect(await governor.totalMembers()).to.eq(5);
-    expect(governor.execute([governor.address], [0], [calldata])).revertedWith(
-      "NotSucceededOrAlreadyExecuted()"
-    );
+    expect(
+      governor.execute([governor.address], [0], [calldata], "addCitzen4")
+    ).revertedWith("NotSucceededOrAlreadyExecuted()");
     expect(governor.connect(citizen5).castVote(proposalId, true)).revertedWith(
       "VotingClosed()"
     );
@@ -95,15 +99,26 @@ describe("Governor ", function () {
     const proposalId = await governor.hashProposal(
       [governor.address],
       [0],
-      [calldata]
+      [calldata],
+      "removeCitzen5"
     );
-    await governor.propose([governor.address], [0], [calldata]);
+    await governor.propose(
+      [governor.address],
+      [0],
+      [calldata],
+      "removeCitzen5"
+    );
     await governor.castVote(proposalId, true);
     await governor.connect(citizen2).castVote(proposalId, true);
     await governor.connect(citizen3).castVote(proposalId, true);
     await governor.connect(citizen5).castVote(proposalId, false);
     await governor.connect(citizen4).castVote(proposalId, true);
-    await governor.execute([governor.address], [0], [calldata]);
+    await governor.execute(
+      [governor.address],
+      [0],
+      [calldata],
+      "removeCitzen5"
+    );
     expect(await governor.members(citizen5.address)).to.eq(false);
     expect(await governor.totalMembers()).to.eq(4);
   });
