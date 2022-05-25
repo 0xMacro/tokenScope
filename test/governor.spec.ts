@@ -18,7 +18,7 @@ describe("Governor ", function () {
       await ethers.getSigners();
     const Governor = await ethers.getContractFactory("Governor");
     governor = <Governor>(
-      await Governor.deploy([
+      await Governor.deploy(75, [
         citizen1.address,
         citizen2.address,
         citizen3.address,

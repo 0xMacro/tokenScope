@@ -2,7 +2,7 @@
   "name": "token-scope",
   "scripts": {
     "goerli-deploy": "yarn hardhat --network goerli deploy",
-    "lintAndFormat": "npx prettier \"**/*.{json,sol,md}\" --write && npx solhint \"contracts/**/*.sol\" --fix"
+    "lintAndFormat": "npx prettier \"**/*.{json,sol,md,ts}\" --write && npx solhint \"contracts/**/*.sol\" --fix"
   },
   "devDependencies": {
     "@nomiclabs/hardhat-ethers": "npm:hardhat-deploy-ethers",
@@ -28,7 +28,7 @@
     "ethereum-waffle": "^3.4.0",
     "ethers": "^5.5.3",
     "hardhat": "^2.8.0",
-    "hardhat-deploy": "^0.9.24",
+    "hardhat-deploy": "^0.11.10",
     "hardhat-gas-reporter": "^1.0.6",
     "prettier": "^2.5.1",
     "prettier-plugin-solidity": "^1.0.0-beta.13",

@@ -1,0 +1,786 @@
+{
+  "address": "0x390c1D7aE1B18183a6E0b59d6D5AE7Efd53b76fE",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "uint128",
+          "name": "_quorum",
+          "type": "uint128"
+        },
+        {
+          "internalType": "address[]",
+          "name": "foundingMembers",
+          "type": "address[]"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "inputs": [],
+      "name": "AlreadyMember",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "AlreadyVoted",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "reason",
+          "type": "string"
+        }
+      ],
+      "name": "InvalidProposal",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "InvalidQuorum",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "NotAMember",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "NotAProposer",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "NotAllowed",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "NotSucceededOrAlreadyExecuted",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "ProposalAlreadyExecuted",
+      "type": "error"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "proposalId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "uint256",
+          "name": "position",
+          "type": "uint256"
+        }
+      ],
+      "name": "RevertForCall",
+      "type": "error"
+    },
+    {
+      "inputs": [],
+      "name": "VotingClosed",
+      "type": "error"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "add",
+          "type": "address"
+        }
+      ],
+      "name": "MembershipRemoved",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "add",
+          "type": "address"
+        }
+      ],
+      "name": "NewMember",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "proposalId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "address",
+          "name": "proposer",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "address[]",
+          "name": "targets",
+          "type": "address[]"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256[]",
+          "name": "values",
+          "type": "uint256[]"
+        },
+        {
+          "indexed": false,
+          "internalType": "bytes[]",
+          "name": "calldatas",
+          "type": "bytes[]"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "startBlock",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "endBlock",
+          "type": "uint256"
+        }
+      ],
+      "name": "ProposalCreated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "proposalId",
+          "type": "uint256"
+        }
+      ],
+      "name": "ProposalExecuted",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint128",
+          "name": "old",
+          "type": "uint128"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint128",
+          "name": "new_",
+          "type": "uint128"
+        }
+      ],
+      "name": "QuorumChanged",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "voter",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "proposalId",
+          "type": "uint256"
+        },
+        {
+          "indexed": false,
+          "internalType": "bool",
+          "name": "support",
+          "type": "bool"
+        }
+      ],
+      "name": "VoteCast",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "VOTING_PERIOD",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_newMember",
+          "type": "address"
+        }
+      ],
+      "name": "addMember",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "proposalId",
+          "type": "uint256"
+        },
+        {
+          "internalType": "bool",
+          "name": "support",
+          "type": "bool"
+        }
+      ],
+      "name": "castVote",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint128",
+          "name": "_newQuorum",
+          "type": "uint128"
+        }
+      ],
+      "name": "changeQuorum",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address[]",
+          "name": "targets",
+          "type": "address[]"
+        },
+        {
+          "internalType": "uint256[]",
+          "name": "values",
+          "type": "uint256[]"
+        },
+        {
+          "internalType": "bytes[]",
+          "name": "calldatas",
+          "type": "bytes[]"
+        },
+        {
+          "internalType": "string",
+          "name": "description",
+          "type": "string"
+        }
+      ],
+      "name": "execute",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address[]",
+          "name": "targets",
+          "type": "address[]"
+        },
+        {
+          "internalType": "uint256[]",
+          "name": "values",
+          "type": "uint256[]"
+        },
+        {
+          "internalType": "bytes[]",
+          "name": "calldatas",
+          "type": "bytes[]"
+        },
+        {
+          "internalType": "string",
+          "name": "description",
+          "type": "string"
+        }
+      ],
+      "name": "hashProposal",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address[]",
+          "name": "targets",
+          "type": "address[]"
+        },
+        {
+          "internalType": "uint256[]",
+          "name": "values",
+          "type": "uint256[]"
+        },
+        {
+          "internalType": "bytes[]",
+          "name": "calldatas",
+          "type": "bytes[]"
+        },
+        {
+          "internalType": "string",
+          "name": "description",
+          "type": "string"
+        }
+      ],
+      "name": "isValidProposal",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "id",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "members",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "name": "proposals",
+      "outputs": [
+        {
+          "internalType": "uint128",
+          "name": "start",
+          "type": "uint128"
+        },
+        {
+          "internalType": "uint128",
+          "name": "end",
+          "type": "uint128"
+        },
+        {
+          "internalType": "bool",
+          "name": "executed",
+          "type": "bool"
+        },
+        {
+          "internalType": "uint128",
+          "name": "forVotes",
+          "type": "uint128"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address[]",
+          "name": "targets",
+          "type": "address[]"
+        },
+        {
+          "internalType": "uint256[]",
+          "name": "values",
+          "type": "uint256[]"
+        },
+        {
+          "internalType": "bytes[]",
+          "name": "calldatas",
+          "type": "bytes[]"
+        },
+        {
+          "internalType": "string",
+          "name": "description",
+          "type": "string"
+        }
+      ],
+      "name": "propose",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "quorum",
+      "outputs": [
+        {
+          "internalType": "uint128",
+          "name": "",
+          "type": "uint128"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_oldMember",
+          "type": "address"
+        }
+      ],
+      "name": "removeMember",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "proposalId",
+          "type": "uint256"
+        }
+      ],
+      "name": "state",
+      "outputs": [
+        {
+          "internalType": "enum Governor.ProposalState",
+          "name": "",
+          "type": "uint8"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "totalMembers",
+      "outputs": [
+        {
+          "internalType": "uint128",
+          "name": "",
+          "type": "uint128"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0x86b497a364817dc0055b0b34652fdb74b9829a7711e14f2bb8339d4d4ff57e50",
+  "receipt": {
+    "to": null,
+    "from": "0xa14aa51b503548D560fB7cf4c2f4a14F19fE44b3",
+    "contractAddress": "0x390c1D7aE1B18183a6E0b59d6D5AE7Efd53b76fE",
+    "transactionIndex": 1,
+    "gasUsed": "1293272",
+    "logsBloom": "0x00000000000000000000000000000100000000000000000000000000000000000000000000200000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000020000800000000000000000000800000000000000000000000000000000000000000000000000000010040000000000004000000000000000000000000000000000000000000000000000000000400000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000",
+    "blockHash": "0xd5ffde558ff76c0a6135edec549e2b5663264cfe6842473ec524fa8d137ddab6",
+    "transactionHash": "0x86b497a364817dc0055b0b34652fdb74b9829a7711e14f2bb8339d4d4ff57e50",
+    "logs": [
+      {
+        "transactionIndex": 1,
+        "blockNumber": 6948256,
+        "transactionHash": "0x86b497a364817dc0055b0b34652fdb74b9829a7711e14f2bb8339d4d4ff57e50",
+        "address": "0x390c1D7aE1B18183a6E0b59d6D5AE7Efd53b76fE",
+        "topics": [
+          "0x41dfa02353333df041432364adc8793e8cbf0ac004429b5afa868ab9c23230d9"
+        ],
+        "data": "0x0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000003c",
+        "logIndex": 1,
+        "blockHash": "0xd5ffde558ff76c0a6135edec549e2b5663264cfe6842473ec524fa8d137ddab6"
+      },
+      {
+        "transactionIndex": 1,
+        "blockNumber": 6948256,
+        "transactionHash": "0x86b497a364817dc0055b0b34652fdb74b9829a7711e14f2bb8339d4d4ff57e50",
+        "address": "0x390c1D7aE1B18183a6E0b59d6D5AE7Efd53b76fE",
+        "topics": [
+          "0xb4dcb6dd550f27b5917ebf674899ea7046ff91790c6f9f01431617ad39819db2"
+        ],
+        "data": "0x000000000000000000000000a14aa51b503548d560fb7cf4c2f4a14f19fe44b3",
+        "logIndex": 2,
+        "blockHash": "0xd5ffde558ff76c0a6135edec549e2b5663264cfe6842473ec524fa8d137ddab6"
+      },
+      {
+        "transactionIndex": 1,
+        "blockNumber": 6948256,
+        "transactionHash": "0x86b497a364817dc0055b0b34652fdb74b9829a7711e14f2bb8339d4d4ff57e50",
+        "address": "0x390c1D7aE1B18183a6E0b59d6D5AE7Efd53b76fE",
+        "topics": [
+          "0xb4dcb6dd550f27b5917ebf674899ea7046ff91790c6f9f01431617ad39819db2"
+        ],
+        "data": "0x000000000000000000000000ee3bdd7d33b0d8b729d5da6af076d632019eec78",
+        "logIndex": 3,
+        "blockHash": "0xd5ffde558ff76c0a6135edec549e2b5663264cfe6842473ec524fa8d137ddab6"
+      },
+      {
+        "transactionIndex": 1,
+        "blockNumber": 6948256,
+        "transactionHash": "0x86b497a364817dc0055b0b34652fdb74b9829a7711e14f2bb8339d4d4ff57e50",
+        "address": "0x390c1D7aE1B18183a6E0b59d6D5AE7Efd53b76fE",
+        "topics": [
+          "0xb4dcb6dd550f27b5917ebf674899ea7046ff91790c6f9f01431617ad39819db2"
+        ],
+        "data": "0x00000000000000000000000050f14f79cb3e2ce19d0e4343e1a340fc3ec8f7ad",
+        "logIndex": 4,
+        "blockHash": "0xd5ffde558ff76c0a6135edec549e2b5663264cfe6842473ec524fa8d137ddab6"
+      },
+      {
+        "transactionIndex": 1,
+        "blockNumber": 6948256,
+        "transactionHash": "0x86b497a364817dc0055b0b34652fdb74b9829a7711e14f2bb8339d4d4ff57e50",
+        "address": "0x390c1D7aE1B18183a6E0b59d6D5AE7Efd53b76fE",
+        "topics": [
+          "0xb4dcb6dd550f27b5917ebf674899ea7046ff91790c6f9f01431617ad39819db2"
+        ],
+        "data": "0x000000000000000000000000d67314ecc432c3886c85d3bd0ee4dfc68463e697",
+        "logIndex": 5,
+        "blockHash": "0xd5ffde558ff76c0a6135edec549e2b5663264cfe6842473ec524fa8d137ddab6"
+      },
+      {
+        "transactionIndex": 1,
+        "blockNumber": 6948256,
+        "transactionHash": "0x86b497a364817dc0055b0b34652fdb74b9829a7711e14f2bb8339d4d4ff57e50",
+        "address": "0x390c1D7aE1B18183a6E0b59d6D5AE7Efd53b76fE",
+        "topics": [
+          "0xb4dcb6dd550f27b5917ebf674899ea7046ff91790c6f9f01431617ad39819db2"
+        ],
+        "data": "0x000000000000000000000000dd1dc3e4d8c1b5fa806567f98c968dfc9e51390a",
+        "logIndex": 6,
+        "blockHash": "0xd5ffde558ff76c0a6135edec549e2b5663264cfe6842473ec524fa8d137ddab6"
+      }
+    ],
+    "blockNumber": 6948256,
+    "cumulativeGasUsed": "1327662",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": [
+    [60],
+    [
+      "0xa14aa51b503548D560fB7cf4c2f4a14F19fE44b3",
+      "0xeE3bdd7D33B0d8B729d5DA6aF076d632019Eec78",
+      "0x50F14f79CB3E2CE19d0E4343e1A340FC3EC8f7ad",
+      "0xd67314eCc432c3886c85d3BD0eE4DfC68463E697",
+      "0xDD1DC3e4D8C1b5FA806567F98c968DFC9E51390A"
+    ]
+  ],
+  "numDeployments": 2,
+  "solcInputHash": "b9b03d07c5f07212a400d28ee19a0184",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.14+commit.80d49f37\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"uint128\",\"name\":\"_quorum\",\"type\":\"uint128\"},{\"internalType\":\"address[]\",\"name\":\"foundingMembers\",\"type\":\"address[]\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"inputs\":[],\"name\":\"AlreadyMember\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"AlreadyVoted\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"reason\",\"type\":\"string\"}],\"name\":\"InvalidProposal\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"InvalidQuorum\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NotAMember\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NotAProposer\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NotAllowed\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"NotSucceededOrAlreadyExecuted\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"ProposalAlreadyExecuted\",\"type\":\"error\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"},{\"internalType\":\"uint256\",\"name\":\"position\",\"type\":\"uint256\"}],\"name\":\"RevertForCall\",\"type\":\"error\"},{\"inputs\":[],\"name\":\"VotingClosed\",\"type\":\"error\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"add\",\"type\":\"address\"}],\"name\":\"MembershipRemoved\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"address\",\"name\":\"add\",\"type\":\"address\"}],\"name\":\"NewMember\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"address\",\"name\":\"proposer\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"address[]\",\"name\":\"targets\",\"type\":\"address[]\"},{\"indexed\":false,\"internalType\":\"uint256[]\",\"name\":\"values\",\"type\":\"uint256[]\"},{\"indexed\":false,\"internalType\":\"bytes[]\",\"name\":\"calldatas\",\"type\":\"bytes[]\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"startBlock\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"endBlock\",\"type\":\"uint256\"}],\"name\":\"ProposalCreated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"}],\"name\":\"ProposalExecuted\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint128\",\"name\":\"old\",\"type\":\"uint128\"},{\"indexed\":false,\"internalType\":\"uint128\",\"name\":\"new_\",\"type\":\"uint128\"}],\"name\":\"QuorumChanged\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"voter\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"},{\"indexed\":false,\"internalType\":\"bool\",\"name\":\"support\",\"type\":\"bool\"}],\"name\":\"VoteCast\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"VOTING_PERIOD\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_newMember\",\"type\":\"address\"}],\"name\":\"addMember\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"},{\"internalType\":\"bool\",\"name\":\"support\",\"type\":\"bool\"}],\"name\":\"castVote\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint128\",\"name\":\"_newQuorum\",\"type\":\"uint128\"}],\"name\":\"changeQuorum\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address[]\",\"name\":\"targets\",\"type\":\"address[]\"},{\"internalType\":\"uint256[]\",\"name\":\"values\",\"type\":\"uint256[]\"},{\"internalType\":\"bytes[]\",\"name\":\"calldatas\",\"type\":\"bytes[]\"},{\"internalType\":\"string\",\"name\":\"description\",\"type\":\"string\"}],\"name\":\"execute\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address[]\",\"name\":\"targets\",\"type\":\"address[]\"},{\"internalType\":\"uint256[]\",\"name\":\"values\",\"type\":\"uint256[]\"},{\"internalType\":\"bytes[]\",\"name\":\"calldatas\",\"type\":\"bytes[]\"},{\"internalType\":\"string\",\"name\":\"description\",\"type\":\"string\"}],\"name\":\"hashProposal\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address[]\",\"name\":\"targets\",\"type\":\"address[]\"},{\"internalType\":\"uint256[]\",\"name\":\"values\",\"type\":\"uint256[]\"},{\"internalType\":\"bytes[]\",\"name\":\"calldatas\",\"type\":\"bytes[]\"},{\"internalType\":\"string\",\"name\":\"description\",\"type\":\"string\"}],\"name\":\"isValidProposal\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"id\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"members\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"name\":\"proposals\",\"outputs\":[{\"internalType\":\"uint128\",\"name\":\"start\",\"type\":\"uint128\"},{\"internalType\":\"uint128\",\"name\":\"end\",\"type\":\"uint128\"},{\"internalType\":\"bool\",\"name\":\"executed\",\"type\":\"bool\"},{\"internalType\":\"uint128\",\"name\":\"forVotes\",\"type\":\"uint128\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address[]\",\"name\":\"targets\",\"type\":\"address[]\"},{\"internalType\":\"uint256[]\",\"name\":\"values\",\"type\":\"uint256[]\"},{\"internalType\":\"bytes[]\",\"name\":\"calldatas\",\"type\":\"bytes[]\"},{\"internalType\":\"string\",\"name\":\"description\",\"type\":\"string\"}],\"name\":\"propose\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"quorum\",\"outputs\":[{\"internalType\":\"uint128\",\"name\":\"\",\"type\":\"uint128\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_oldMember\",\"type\":\"address\"}],\"name\":\"removeMember\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"proposalId\",\"type\":\"uint256\"}],\"name\":\"state\",\"outputs\":[{\"internalType\":\"enum Governor.ProposalState\",\"name\":\"\",\"type\":\"uint8\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"totalMembers\",\"outputs\":[{\"internalType\":\"uint128\",\"name\":\"\",\"type\":\"uint128\"}],\"stateMutability\":\"view\",\"type\":\"function\"}],\"devdoc\":{\"kind\":\"dev\",\"methods\":{},\"version\":1},\"userdoc\":{\"kind\":\"user\",\"methods\":{},\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/Governor.sol\":\"Governor\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":2000},\"remappings\":[]},\"sources\":{\"contracts/Governor.sol\":{\"content\":\"//SPDX-License-Identifier: Unlicense\\npragma solidity ^0.8.0;\\n\\n// Governance Rules\\n\\n// Proposal Creation:\\n// Anyone can create proposal\\n// Duplicate proposals are not allowed\\n\\n// Members:\\n// In the constructor, founding members are added.\\n// Anyone can create a proposal to add new member or remove existing member.\\n\\n// Voting\\n// Only members can vote\\n// There is no castBySig or delegation; each member has to cast a vote by themselves\\n// All votes carry equal weight\\n// For a proposal to be passed\\n//    for votes >= 0.75 * total members\\n// We don't keep track of against votes as it doesn't matter, in our case.\\n// Because if for votes are > 75 out of 100, against votes are always going to be less than that\\n// Inactive vote is a superset of against vote, which additionally allows one to change their vote to true\\n// Once quorum is reached, voting is closed.\\n\\n// Proposal Execution\\n// Anyone can execute a proposal once passed\\n// Each proposal can be executed only once\\n\\ncontract Governor {\\n    // constants\\n    uint256 public constant VOTING_PERIOD = 30 days;\\n\\n    // variables\\n    mapping(address => bool) public members;\\n    uint128 public totalMembers;\\n    uint128 public quorum;\\n\\n    struct Receipt {\\n        bool hasVoted;\\n        bool support;\\n    }\\n\\n    struct Proposal {\\n        // slot 1\\n        uint128 start;\\n        uint128 end;\\n        // slot 2\\n        bool executed;\\n        uint128 forVotes;\\n        mapping(address => Receipt) receipts;\\n    }\\n\\n    mapping(uint256 => Proposal) public proposals;\\n\\n    enum ProposalState {\\n        Executed,\\n        Active,\\n        Succeeded,\\n        Defeated\\n    }\\n\\n    /*///////////////////////////////////////////////////////////////\\n                      MEMEBERSHIP\\n    //////////////////////////////////////////////////////////////*/\\n\\n    // events\\n    event NewMember(address add);\\n    event MembershipRemoved(address add);\\n\\n    // errrors\\n    error NotAllowed();\\n    error AlreadyMember();\\n    error NotAMember();\\n\\n    constructor(uint128 _quorum, address[] memory foundingMembers) {\\n        quorum = _quorum;\\n        emit QuorumChanged(0, _quorum);\\n\\n        uint256 length = foundingMembers.length;\\n        for (uint256 i = 0; i < length; ++i) {\\n            _addMember(foundingMembers[i]);\\n        }\\n    }\\n\\n    function addMember(address _newMember) external {\\n        if (msg.sender != address(this)) revert NotAllowed();\\n        _addMember(_newMember);\\n    }\\n\\n    function _addMember(address _newMember) internal {\\n        if (members[_newMember] != false) revert AlreadyMember();\\n        totalMembers++;\\n        members[_newMember] = true;\\n        emit NewMember(_newMember);\\n    }\\n\\n    function removeMember(address _oldMember) external {\\n        if (msg.sender != address(this)) revert NotAllowed();\\n        isMember(_oldMember);\\n        totalMembers--;\\n        members[_oldMember] = false;\\n        emit MembershipRemoved(_oldMember);\\n    }\\n\\n    function isMember(address _add) internal view {\\n        if (!members[_add]) revert NotAMember();\\n    }\\n\\n    /*///////////////////////////////////////////////////////////////\\n                      PROPOSAL\\n    //////////////////////////////////////////////////////////////*/\\n\\n    // events\\n    event ProposalCreated(\\n        uint256 proposalId,\\n        address proposer,\\n        address[] targets,\\n        uint256[] values,\\n        bytes[] calldatas,\\n        uint256 startBlock,\\n        uint256 endBlock\\n    );\\n    event ProposalExecuted(uint256 proposalId);\\n\\n    // errors\\n    error InvalidProposal(string reason);\\n    error RevertForCall(uint256 proposalId, uint256 position);\\n    error NotAProposer();\\n    error NotSucceededOrAlreadyExecuted();\\n    error ProposalAlreadyExecuted();\\n\\n    function state(uint256 proposalId) public view returns (ProposalState) {\\n        Proposal storage p = proposals[proposalId];\\n\\n        if (p.executed) return ProposalState.Executed;\\n        if (p.start == 0) revert InvalidProposal(\\\"NotDefined\\\");\\n        if (_isSucceeded(p)) return ProposalState.Succeeded;\\n        if (p.end >= block.timestamp) return ProposalState.Active;\\n        return ProposalState.Defeated;\\n    }\\n\\n    function hashProposal(\\n        address[] memory targets,\\n        uint256[] memory values,\\n        bytes[] memory calldatas,\\n        string memory description\\n    ) public pure returns (uint256) {\\n        return\\n            uint256(\\n                keccak256(abi.encode(targets, values, calldatas, description))\\n            );\\n    }\\n\\n    function isValidProposal(\\n        address[] memory targets,\\n        uint256[] memory values,\\n        bytes[] memory calldatas,\\n        string memory description\\n    ) public view returns (uint256 id) {\\n        if (targets.length != values.length)\\n            revert InvalidProposal(\\\"targets!=values\\\");\\n        if (targets.length != calldatas.length)\\n            revert InvalidProposal(\\\"targets!=calldatas\\\");\\n        if (targets.length == 0) revert InvalidProposal(\\\"empty\\\");\\n\\n        id = hashProposal(targets, values, calldatas, description);\\n\\n        if (proposals[id].start != 0) revert InvalidProposal(\\\"Duplicate\\\");\\n    }\\n\\n    function propose(\\n        address[] memory targets,\\n        uint256[] memory values,\\n        bytes[] memory calldatas,\\n        string memory description\\n    ) external returns (uint256) {\\n        uint256 proposalId = isValidProposal(\\n            targets,\\n            values,\\n            calldatas,\\n            description\\n        );\\n        uint256 _start = block.timestamp;\\n        uint256 _end = _start + VOTING_PERIOD;\\n        proposals[proposalId].start = uint128(_start);\\n        proposals[proposalId].end = uint128(_end);\\n\\n        emit ProposalCreated(\\n            proposalId,\\n            msg.sender,\\n            targets,\\n            values,\\n            calldatas,\\n            _start,\\n            _end\\n        );\\n        return proposalId;\\n    }\\n\\n    function execute(\\n        address[] memory targets,\\n        uint256[] memory values,\\n        bytes[] memory calldatas,\\n        string memory description\\n    ) external {\\n        uint256 proposalId = hashProposal(\\n            targets,\\n            values,\\n            calldatas,\\n            description\\n        );\\n        // Check\\n        if (state(proposalId) != ProposalState.Succeeded)\\n            revert NotSucceededOrAlreadyExecuted();\\n\\n        // Effect\\n        proposals[proposalId].executed = true;\\n        emit ProposalExecuted(proposalId);\\n\\n        // Interaction\\n        for (uint256 i = 0; i < targets.length; ++i) {\\n            (bool success, bytes memory returndata) = targets[i].call{\\n                value: values[i]\\n            }(calldatas[i]);\\n            if (!success) {\\n                if (returndata.length == 0) revert RevertForCall(proposalId, i);\\n                assembly {\\n                    revert(add(32, returndata), mload(returndata))\\n                }\\n            }\\n        }\\n    }\\n\\n    /*///////////////////////////////////////////////////////////////\\n                          VOTE\\n    //////////////////////////////////////////////////////////////*/\\n\\n    // events\\n    event VoteCast(address indexed voter, uint256 proposalId, bool support);\\n    event QuorumChanged(uint128 old, uint128 new_);\\n\\n    // errors\\n    error VotingClosed();\\n    error AlreadyVoted();\\n    error InvalidQuorum();\\n\\n    function castVote(uint256 proposalId, bool support) external {\\n        return _castVote(msg.sender, proposalId, support);\\n    }\\n\\n    function _castVote(\\n        address voter,\\n        uint256 proposalId,\\n        bool support\\n    ) internal {\\n        isMember(voter);\\n        if (state(proposalId) != ProposalState.Active) revert VotingClosed();\\n\\n        Proposal storage proposal = proposals[proposalId];\\n        Receipt storage receipt = proposal.receipts[voter];\\n\\n        if (receipt.hasVoted) revert AlreadyVoted();\\n\\n        if (support) proposal.forVotes++;\\n\\n        receipt.hasVoted = true;\\n        receipt.support = support;\\n\\n        emit VoteCast(voter, proposalId, support);\\n    }\\n\\n    function _isSucceeded(Proposal storage proposal)\\n        internal\\n        view\\n        returns (bool)\\n    {\\n        if (proposal.forVotes * 100 >= totalMembers * quorum) return true;\\n        else return false;\\n    }\\n\\n    function changeQuorum(uint128 _newQuorum) external {\\n        if (msg.sender != address(this)) revert NotAllowed();\\n        if (_newQuorum < 50 || _newQuorum > 100) revert InvalidQuorum();\\n\\n        emit QuorumChanged(quorum, _newQuorum);\\n        quorum = _newQuorum;\\n    }\\n}\\n\",\"keccak256\":\"0x530d24849261869aaa42baf75d8a1fe4b5a66375563ade1a20349f4d24e0ac68\",\"license\":\"Unlicense\"}},\"version\":1}",
+  "bytecode": "0x60806040523480156200001157600080fd5b50604051620016fe380380620016fe8339810160408190526200003491620001e9565b600180546001600160801b03908116600160801b91851691820217909155604080516000815260208101929092527f41dfa02353333df041432364adc8793e8cbf0ac004429b5afa868ab9c23230d9910160405180910390a1805160005b81811015620000db57620000c8838281518110620000b457620000b4620002df565b6020026020010151620000e560201b60201c565b620000d3816200030b565b905062000092565b5050505062000358565b6001600160a01b03811660009081526020819052604090205460ff161562000120576040516340803a5f60e11b815260040160405180910390fd5b600180546001600160801b03169060006200013b8362000327565b82546001600160801b039182166101009390930a9283029190920219909116179055506001600160a01b03811660008181526020818152604091829020805460ff1916600117905590519182527fb4dcb6dd550f27b5917ebf674899ea7046ff91790c6f9f01431617ad39819db2910160405180910390a150565b634e487b7160e01b600052604160045260246000fd5b80516001600160a01b0381168114620001e457600080fd5b919050565b60008060408385031215620001fd57600080fd5b82516001600160801b03811681146200021557600080fd5b602084810151919350906001600160401b03808211156200023557600080fd5b818601915086601f8301126200024a57600080fd5b8151818111156200025f576200025f620001b6565b8060051b604051601f19603f83011681018181108582111715620002875762000287620001b6565b604052918252848201925083810185019189831115620002a657600080fd5b938501935b82851015620002cf57620002bf85620001cc565b84529385019392850192620002ab565b8096505050505050509250929050565b634e487b7160e01b600052603260045260246000fd5b634e487b7160e01b600052601160045260246000fd5b600060018201620003205762000320620002f5565b5060010190565b60006001600160801b038281166002600160801b031981016200034e576200034e620002f5565b6001019392505050565b61139680620003686000396000f3fe608060405234801561001057600080fd5b50600436106100ea5760003560e01c806376e925591161008c578063a12802cf11610066578063a12802cf14610277578063b1610d7e1461028a578063ca6d56dc14610294578063e4ea8b65146102a757600080fd5b806376e925591461023e5780637d5e81e214610251578063950e3e441461026457600080fd5b80630b1ca49a116100c85780630b1ca49a146101c457806315373e3d146101d95780631703a018146101ec5780633e4f49e61461021e57600080fd5b8063013cf08b146100ef57806308ae4b0c146101705780630a78066f146101a3575b600080fd5b6101386100fd366004610cb2565b600260205260009081526040902080546001909101546001600160801b0380831692600160801b900481169160ff8116916101009091041684565b604080516001600160801b03958616815293851660208501529115159183019190915290911660608201526080015b60405180910390f35b61019361017e366004610ce2565b60006020819052908152604090205460ff1681565b6040519015158152602001610167565b6101b66101b1366004610ee7565b6102ba565b604051908152602001610167565b6101d76101d2366004610ce2565b610434565b005b6101d76101e7366004610ff0565b6104ef565b60015461020690600160801b90046001600160801b031681565b6040516001600160801b039091168152602001610167565b61023161022c366004610cb2565b6104fe565b604051610167919061103b565b600154610206906001600160801b031681565b6101b661025f366004610ee7565b6105bf565b6101b6610272366004610ee7565b610658565b6101d7610285366004611063565b610692565b6101b662278d0081565b6101d76102a2366004610ce2565b610777565b6101d76102b5366004610ee7565b6107a3565b600083518551146103135760405163935f84bf60e01b815260206004820152600f60248201527f74617267657473213d76616c756573000000000000000000000000000000000060448201526064015b60405180910390fd5b82518551146103655760405163935f84bf60e01b815260206004820152601260248201527f74617267657473213d63616c6c64617461730000000000000000000000000000604482015260640161030a565b84516000036103b75760405163935f84bf60e01b815260206004820152600560248201527f656d707479000000000000000000000000000000000000000000000000000000604482015260640161030a565b6103c385858585610658565b6000818152600260205260409020549091506001600160801b03161561042c5760405163935f84bf60e01b815260206004820152600960248201527f4475706c69636174650000000000000000000000000000000000000000000000604482015260640161030a565b949350505050565b33301461045457604051631eb49d6d60e11b815260040160405180910390fd5b61045d81610985565b600180546001600160801b0316906000610476836110a2565b82546001600160801b039182166101009390930a9283029190920219909116179055506001600160a01b03811660008181526020818152604091829020805460ff1916905590519182527fb06142a803b635c046318ced2e53320bc58e5d67cd8a097a74abebb81ea4a23f91015b60405180910390a150565b6104fa3383836109d7565b5050565b6000818152600260205260408120600181015460ff16156105225750600092915050565b80546001600160801b031660000361057d5760405163935f84bf60e01b815260206004820152600a60248201527f4e6f74446566696e656400000000000000000000000000000000000000000000604482015260640161030a565b61058681610b6a565b156105945750600292915050565b805442600160801b9091046001600160801b0316106105b65750600192915050565b50600392915050565b6000806105ce868686866102ba565b90504260006105e062278d00836110c5565b600084815260026020526040908190206001600160801b03808416600160801b02908616179055519091507fa2366c4f1e103949cc41bc8117f334969890a670cfe1bbc5f09eb8ceaac0bae09061064490859033908c908c908c9089908990611202565b60405180910390a150909695505050505050565b6000848484846040516020016106719493929190611267565b60408051601f19818403018152919052805160209091012095945050505050565b3330146106b257604051631eb49d6d60e11b815260040160405180910390fd5b6032816001600160801b031610806106d357506064816001600160801b0316115b1561070a576040517fd173577900000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b600154604080516001600160801b03600160801b9093048316815291831660208301527f41dfa02353333df041432364adc8793e8cbf0ac004429b5afa868ab9c23230d9910160405180910390a1600180546001600160801b03928316600160801b029216919091179055565b33301461079757604051631eb49d6d60e11b815260040160405180910390fd5b6107a081610bd1565b50565b60006107b185858585610658565b905060026107be826104fe565b60038111156107cf576107cf611025565b14610806576040517f6e42554b00000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b600081815260026020526040908190206001908101805460ff19169091179055517f712ae1383f79ac853f8d882153778e0260ef8f03b504e2866e0593e04d2b291f906108569083815260200190565b60405180910390a160005b855181101561097d5760008087838151811061087f5761087f6112bf565b60200260200101516001600160a01b03168784815181106108a2576108a26112bf565b60200260200101518785815181106108bc576108bc6112bf565b60200260200101516040516108d191906112d5565b60006040518083038185875af1925050503d806000811461090e576040519150601f19603f3d011682016040523d82523d6000602084013e610913565b606091505b50915091508161096a578051600003610962576040517f1e14bdb3000000000000000000000000000000000000000000000000000000008152600481018590526024810184905260440161030a565b805181602001fd5b505080610976906112f1565b9050610861565b505050505050565b6001600160a01b03811660009081526020819052604090205460ff166107a0576040517f2818e88800000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b6109e083610985565b60016109eb836104fe565b60038111156109fc576109fc611025565b14610a33576040517f66b6cb4a00000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b60008281526002602081815260408084206001600160a01b0388168552928301909152909120805460ff1615610a95576040517f7c9a1cf900000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b8215610ae0576001828101805461010090046001600160801b031691610aba8361130b565b91906101000a8154816001600160801b0302191690836001600160801b03160217905550505b8054831515610100027fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00009091161760011781556040516001600160a01b038616907fd356173ae8eeea8691aee4c1be712c314a975a3d43ebc48b08ca54d0dac9122890610b5b90879087909182521515602082015260400190565b60405180910390a25050505050565b600154600090610b8c906001600160801b03600160801b820481169116611331565b60018301546001600160801b0391821691610bae916101009004166064611331565b6001600160801b031610610bc457506001919050565b506000919050565b919050565b6001600160a01b03811660009081526020819052604090205460ff1615610c24576040517f810074be00000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b600180546001600160801b0316906000610c3d8361130b565b82546001600160801b039182166101009390930a9283029190920219909116179055506001600160a01b03811660008181526020818152604091829020805460ff1916600117905590519182527fb4dcb6dd550f27b5917ebf674899ea7046ff91790c6f9f01431617ad39819db291016104e4565b600060208284031215610cc457600080fd5b5035919050565b80356001600160a01b0381168114610bcc57600080fd5b600060208284031215610cf457600080fd5b610cfd82610ccb565b9392505050565b634e487b7160e01b600052604160045260246000fd5b604051601f8201601f1916810167ffffffffffffffff81118282101715610d4357610d43610d04565b604052919050565b600067ffffffffffffffff821115610d6557610d65610d04565b5060051b60200190565b600082601f830112610d8057600080fd5b81356020610d95610d9083610d4b565b610d1a565b82815260059290921b84018101918181019086841115610db457600080fd5b8286015b84811015610dcf5780358352918301918301610db8565b509695505050505050565b600067ffffffffffffffff831115610df457610df4610d04565b610e076020601f19601f86011601610d1a565b9050828152838383011115610e1b57600080fd5b828260208301376000602084830101529392505050565b600082601f830112610e4357600080fd5b81356020610e53610d9083610d4b565b82815260059290921b84018101918181019086841115610e7257600080fd5b8286015b84811015610dcf57803567ffffffffffffffff811115610e965760008081fd5b8701603f81018913610ea85760008081fd5b610eb9898683013560408401610dda565b845250918301918301610e76565b600082601f830112610ed857600080fd5b610cfd83833560208501610dda565b60008060008060808587031215610efd57600080fd5b843567ffffffffffffffff80821115610f1557600080fd5b818701915087601f830112610f2957600080fd5b81356020610f39610d9083610d4b565b82815260059290921b8401810191818101908b841115610f5857600080fd5b948201945b83861015610f7d57610f6e86610ccb565b82529482019490820190610f5d565b98505088013592505080821115610f9357600080fd5b610f9f88838901610d6f565b94506040870135915080821115610fb557600080fd5b610fc188838901610e32565b93506060870135915080821115610fd757600080fd5b50610fe487828801610ec7565b91505092959194509250565b6000806040838503121561100357600080fd5b823591506020830135801515811461101a57600080fd5b809150509250929050565b634e487b7160e01b600052602160045260246000fd5b602081016004831061105d57634e487b7160e01b600052602160045260246000fd5b91905290565b60006020828403121561107557600080fd5b81356001600160801b0381168114610cfd57600080fd5b634e487b7160e01b600052601160045260246000fd5b60006001600160801b038216806110bb576110bb61108c565b6000190192915050565b600082198211156110d8576110d861108c565b500190565b600081518084526020808501945080840160005b838110156111165781516001600160a01b0316875295820195908201906001016110f1565b509495945050505050565b600081518084526020808501945080840160005b8381101561111657815187529582019590820190600101611135565b60005b8381101561116c578181015183820152602001611154565b8381111561117b576000848401525b50505050565b60008151808452611199816020860160208601611151565b601f01601f19169290920160200192915050565b600081518084526020808501808196508360051b8101915082860160005b858110156111f55782840389526111e3848351611181565b988501989350908401906001016111cb565b5091979650505050505050565b8781526001600160a01b038716602082015260e06040820152600061122a60e08301886110dd565b828103606084015261123c8188611121565b9050828103608084015261125081876111ad565b60a0840195909552505060c0015295945050505050565b60808152600061127a60808301876110dd565b828103602084015261128c8187611121565b905082810360408401526112a081866111ad565b905082810360608401526112b48185611181565b979650505050505050565b634e487b7160e01b600052603260045260246000fd5b600082516112e7818460208701611151565b9190910192915050565b600060001982036113045761130461108c565b5060010190565b60006001600160801b038083168181036113275761132761108c565b6001019392505050565b60006001600160801b03808316818516818304811182151516156113575761135761108c565b0294935050505056fea264697066735822122031e8d1835e5e16fb21f155b37eb7bb6ec7df4a57013cf13c82de820d2477e54164736f6c634300080e0033",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100ea5760003560e01c806376e925591161008c578063a12802cf11610066578063a12802cf14610277578063b1610d7e1461028a578063ca6d56dc14610294578063e4ea8b65146102a757600080fd5b806376e925591461023e5780637d5e81e214610251578063950e3e441461026457600080fd5b80630b1ca49a116100c85780630b1ca49a146101c457806315373e3d146101d95780631703a018146101ec5780633e4f49e61461021e57600080fd5b8063013cf08b146100ef57806308ae4b0c146101705780630a78066f146101a3575b600080fd5b6101386100fd366004610cb2565b600260205260009081526040902080546001909101546001600160801b0380831692600160801b900481169160ff8116916101009091041684565b604080516001600160801b03958616815293851660208501529115159183019190915290911660608201526080015b60405180910390f35b61019361017e366004610ce2565b60006020819052908152604090205460ff1681565b6040519015158152602001610167565b6101b66101b1366004610ee7565b6102ba565b604051908152602001610167565b6101d76101d2366004610ce2565b610434565b005b6101d76101e7366004610ff0565b6104ef565b60015461020690600160801b90046001600160801b031681565b6040516001600160801b039091168152602001610167565b61023161022c366004610cb2565b6104fe565b604051610167919061103b565b600154610206906001600160801b031681565b6101b661025f366004610ee7565b6105bf565b6101b6610272366004610ee7565b610658565b6101d7610285366004611063565b610692565b6101b662278d0081565b6101d76102a2366004610ce2565b610777565b6101d76102b5366004610ee7565b6107a3565b600083518551146103135760405163935f84bf60e01b815260206004820152600f60248201527f74617267657473213d76616c756573000000000000000000000000000000000060448201526064015b60405180910390fd5b82518551146103655760405163935f84bf60e01b815260206004820152601260248201527f74617267657473213d63616c6c64617461730000000000000000000000000000604482015260640161030a565b84516000036103b75760405163935f84bf60e01b815260206004820152600560248201527f656d707479000000000000000000000000000000000000000000000000000000604482015260640161030a565b6103c385858585610658565b6000818152600260205260409020549091506001600160801b03161561042c5760405163935f84bf60e01b815260206004820152600960248201527f4475706c69636174650000000000000000000000000000000000000000000000604482015260640161030a565b949350505050565b33301461045457604051631eb49d6d60e11b815260040160405180910390fd5b61045d81610985565b600180546001600160801b0316906000610476836110a2565b82546001600160801b039182166101009390930a9283029190920219909116179055506001600160a01b03811660008181526020818152604091829020805460ff1916905590519182527fb06142a803b635c046318ced2e53320bc58e5d67cd8a097a74abebb81ea4a23f91015b60405180910390a150565b6104fa3383836109d7565b5050565b6000818152600260205260408120600181015460ff16156105225750600092915050565b80546001600160801b031660000361057d5760405163935f84bf60e01b815260206004820152600a60248201527f4e6f74446566696e656400000000000000000000000000000000000000000000604482015260640161030a565b61058681610b6a565b156105945750600292915050565b805442600160801b9091046001600160801b0316106105b65750600192915050565b50600392915050565b6000806105ce868686866102ba565b90504260006105e062278d00836110c5565b600084815260026020526040908190206001600160801b03808416600160801b02908616179055519091507fa2366c4f1e103949cc41bc8117f334969890a670cfe1bbc5f09eb8ceaac0bae09061064490859033908c908c908c9089908990611202565b60405180910390a150909695505050505050565b6000848484846040516020016106719493929190611267565b60408051601f19818403018152919052805160209091012095945050505050565b3330146106b257604051631eb49d6d60e11b815260040160405180910390fd5b6032816001600160801b031610806106d357506064816001600160801b0316115b1561070a576040517fd173577900000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b600154604080516001600160801b03600160801b9093048316815291831660208301527f41dfa02353333df041432364adc8793e8cbf0ac004429b5afa868ab9c23230d9910160405180910390a1600180546001600160801b03928316600160801b029216919091179055565b33301461079757604051631eb49d6d60e11b815260040160405180910390fd5b6107a081610bd1565b50565b60006107b185858585610658565b905060026107be826104fe565b60038111156107cf576107cf611025565b14610806576040517f6e42554b00000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b600081815260026020526040908190206001908101805460ff19169091179055517f712ae1383f79ac853f8d882153778e0260ef8f03b504e2866e0593e04d2b291f906108569083815260200190565b60405180910390a160005b855181101561097d5760008087838151811061087f5761087f6112bf565b60200260200101516001600160a01b03168784815181106108a2576108a26112bf565b60200260200101518785815181106108bc576108bc6112bf565b60200260200101516040516108d191906112d5565b60006040518083038185875af1925050503d806000811461090e576040519150601f19603f3d011682016040523d82523d6000602084013e610913565b606091505b50915091508161096a578051600003610962576040517f1e14bdb3000000000000000000000000000000000000000000000000000000008152600481018590526024810184905260440161030a565b805181602001fd5b505080610976906112f1565b9050610861565b505050505050565b6001600160a01b03811660009081526020819052604090205460ff166107a0576040517f2818e88800000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b6109e083610985565b60016109eb836104fe565b60038111156109fc576109fc611025565b14610a33576040517f66b6cb4a00000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b60008281526002602081815260408084206001600160a01b0388168552928301909152909120805460ff1615610a95576040517f7c9a1cf900000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b8215610ae0576001828101805461010090046001600160801b031691610aba8361130b565b91906101000a8154816001600160801b0302191690836001600160801b03160217905550505b8054831515610100027fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff00009091161760011781556040516001600160a01b038616907fd356173ae8eeea8691aee4c1be712c314a975a3d43ebc48b08ca54d0dac9122890610b5b90879087909182521515602082015260400190565b60405180910390a25050505050565b600154600090610b8c906001600160801b03600160801b820481169116611331565b60018301546001600160801b0391821691610bae916101009004166064611331565b6001600160801b031610610bc457506001919050565b506000919050565b919050565b6001600160a01b03811660009081526020819052604090205460ff1615610c24576040517f810074be00000000000000000000000000000000000000000000000000000000815260040160405180910390fd5b600180546001600160801b0316906000610c3d8361130b565b82546001600160801b039182166101009390930a9283029190920219909116179055506001600160a01b03811660008181526020818152604091829020805460ff1916600117905590519182527fb4dcb6dd550f27b5917ebf674899ea7046ff91790c6f9f01431617ad39819db291016104e4565b600060208284031215610cc457600080fd5b5035919050565b80356001600160a01b0381168114610bcc57600080fd5b600060208284031215610cf457600080fd5b610cfd82610ccb565b9392505050565b634e487b7160e01b600052604160045260246000fd5b604051601f8201601f1916810167ffffffffffffffff81118282101715610d4357610d43610d04565b604052919050565b600067ffffffffffffffff821115610d6557610d65610d04565b5060051b60200190565b600082601f830112610d8057600080fd5b81356020610d95610d9083610d4b565b610d1a565b82815260059290921b84018101918181019086841115610db457600080fd5b8286015b84811015610dcf5780358352918301918301610db8565b509695505050505050565b600067ffffffffffffffff831115610df457610df4610d04565b610e076020601f19601f86011601610d1a565b9050828152838383011115610e1b57600080fd5b828260208301376000602084830101529392505050565b600082601f830112610e4357600080fd5b81356020610e53610d9083610d4b565b82815260059290921b84018101918181019086841115610e7257600080fd5b8286015b84811015610dcf57803567ffffffffffffffff811115610e965760008081fd5b8701603f81018913610ea85760008081fd5b610eb9898683013560408401610dda565b845250918301918301610e76565b600082601f830112610ed857600080fd5b610cfd83833560208501610dda565b60008060008060808587031215610efd57600080fd5b843567ffffffffffffffff80821115610f1557600080fd5b818701915087601f830112610f2957600080fd5b81356020610f39610d9083610d4b565b82815260059290921b8401810191818101908b841115610f5857600080fd5b948201945b83861015610f7d57610f6e86610ccb565b82529482019490820190610f5d565b98505088013592505080821115610f9357600080fd5b610f9f88838901610d6f565b94506040870135915080821115610fb557600080fd5b610fc188838901610e32565b93506060870135915080821115610fd757600080fd5b50610fe487828801610ec7565b91505092959194509250565b6000806040838503121561100357600080fd5b823591506020830135801515811461101a57600080fd5b809150509250929050565b634e487b7160e01b600052602160045260246000fd5b602081016004831061105d57634e487b7160e01b600052602160045260246000fd5b91905290565b60006020828403121561107557600080fd5b81356001600160801b0381168114610cfd57600080fd5b634e487b7160e01b600052601160045260246000fd5b60006001600160801b038216806110bb576110bb61108c565b6000190192915050565b600082198211156110d8576110d861108c565b500190565b600081518084526020808501945080840160005b838110156111165781516001600160a01b0316875295820195908201906001016110f1565b509495945050505050565b600081518084526020808501945080840160005b8381101561111657815187529582019590820190600101611135565b60005b8381101561116c578181015183820152602001611154565b8381111561117b576000848401525b50505050565b60008151808452611199816020860160208601611151565b601f01601f19169290920160200192915050565b600081518084526020808501808196508360051b8101915082860160005b858110156111f55782840389526111e3848351611181565b988501989350908401906001016111cb565b5091979650505050505050565b8781526001600160a01b038716602082015260e06040820152600061122a60e08301886110dd565b828103606084015261123c8188611121565b9050828103608084015261125081876111ad565b60a0840195909552505060c0015295945050505050565b60808152600061127a60808301876110dd565b828103602084015261128c8187611121565b905082810360408401526112a081866111ad565b905082810360608401526112b48185611181565b979650505050505050565b634e487b7160e01b600052603260045260246000fd5b600082516112e7818460208701611151565b9190910192915050565b600060001982036113045761130461108c565b5060010190565b60006001600160801b038083168181036113275761132761108c565b6001019392505050565b60006001600160801b03808316818516818304811182151516156113575761135761108c565b0294935050505056fea264697066735822122031e8d1835e5e16fb21f155b37eb7bb6ec7df4a57013cf13c82de820d2477e54164736f6c634300080e0033",
+  "devdoc": {
+    "kind": "dev",
+    "methods": {},
+    "version": 1
+  },
+  "userdoc": {
+    "kind": "user",
+    "methods": {},
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 8,
+        "contract": "contracts/Governor.sol:Governor",
+        "label": "members",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_mapping(t_address,t_bool)"
+      },
+      {
+        "astId": 10,
+        "contract": "contracts/Governor.sol:Governor",
+        "label": "totalMembers",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_uint128"
+      },
+      {
+        "astId": 12,
+        "contract": "contracts/Governor.sol:Governor",
+        "label": "quorum",
+        "offset": 16,
+        "slot": "1",
+        "type": "t_uint128"
+      },
+      {
+        "astId": 36,
+        "contract": "contracts/Governor.sol:Governor",
+        "label": "proposals",
+        "offset": 0,
+        "slot": "2",
+        "type": "t_mapping(t_uint256,t_struct(Proposal)31_storage)"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_bool": {
+        "encoding": "inplace",
+        "label": "bool",
+        "numberOfBytes": "1"
+      },
+      "t_mapping(t_address,t_bool)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => bool)",
+        "numberOfBytes": "32",
+        "value": "t_bool"
+      },
+      "t_mapping(t_address,t_struct(Receipt)17_storage)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => struct Governor.Receipt)",
+        "numberOfBytes": "32",
+        "value": "t_struct(Receipt)17_storage"
+      },
+      "t_mapping(t_uint256,t_struct(Proposal)31_storage)": {
+        "encoding": "mapping",
+        "key": "t_uint256",
+        "label": "mapping(uint256 => struct Governor.Proposal)",
+        "numberOfBytes": "32",
+        "value": "t_struct(Proposal)31_storage"
+      },
+      "t_struct(Proposal)31_storage": {
+        "encoding": "inplace",
+        "label": "struct Governor.Proposal",
+        "members": [
+          {
+            "astId": 19,
+            "contract": "contracts/Governor.sol:Governor",
+            "label": "start",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_uint128"
+          },
+          {
+            "astId": 21,
+            "contract": "contracts/Governor.sol:Governor",
+            "label": "end",
+            "offset": 16,
+            "slot": "0",
+            "type": "t_uint128"
+          },
+          {
+            "astId": 23,
+            "contract": "contracts/Governor.sol:Governor",
+            "label": "executed",
+            "offset": 0,
+            "slot": "1",
+            "type": "t_bool"
+          },
+          {
+            "astId": 25,
+            "contract": "contracts/Governor.sol:Governor",
+            "label": "forVotes",
+            "offset": 1,
+            "slot": "1",
+            "type": "t_uint128"
+          },
+          {
+            "astId": 30,
+            "contract": "contracts/Governor.sol:Governor",
+            "label": "receipts",
+            "offset": 0,
+            "slot": "2",
+            "type": "t_mapping(t_address,t_struct(Receipt)17_storage)"
+          }
+        ],
+        "numberOfBytes": "96"
+      },
+      "t_struct(Receipt)17_storage": {
+        "encoding": "inplace",
+        "label": "struct Governor.Receipt",
+        "members": [
+          {
+            "astId": 14,
+            "contract": "contracts/Governor.sol:Governor",
+            "label": "hasVoted",
+            "offset": 0,
+            "slot": "0",
+            "type": "t_bool"
+          },
+          {
+            "astId": 16,
+            "contract": "contracts/Governor.sol:Governor",
+            "label": "support",
+            "offset": 1,
+            "slot": "0",
+            "type": "t_bool"
+          }
+        ],
+        "numberOfBytes": "32"
+      },
+      "t_uint128": {
+        "encoding": "inplace",
+        "label": "uint128",
+        "numberOfBytes": "16"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      }
+    }
+  }
+}

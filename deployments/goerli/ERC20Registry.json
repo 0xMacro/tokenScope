@@ -1,0 +1,589 @@
+{
+  "address": "0xCCB7f9a06fCfbDd8A4F0C3F177648aa696eb5506",
+  "abi": [
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_governor",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "nonpayable",
+      "type": "constructor"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": false,
+          "internalType": "uint8",
+          "name": "fact",
+          "type": "uint8"
+        },
+        {
+          "indexed": false,
+          "internalType": "string",
+          "name": "code",
+          "type": "string"
+        }
+      ],
+      "name": "ERC20FactCreated",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "token",
+          "type": "address"
+        },
+        {
+          "indexed": false,
+          "internalType": "uint256",
+          "name": "validatedFacts",
+          "type": "uint256"
+        }
+      ],
+      "name": "ERC20ValidatedFacts",
+      "type": "event"
+    },
+    {
+      "anonymous": false,
+      "inputs": [
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "previousOwner",
+          "type": "address"
+        },
+        {
+          "indexed": true,
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "OwnershipTransferred",
+      "type": "event"
+    },
+    {
+      "inputs": [],
+      "name": "IS_REGISTERED",
+      "outputs": [
+        {
+          "internalType": "uint8",
+          "name": "",
+          "type": "uint8"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "IS_VALID_ERC20",
+      "outputs": [
+        {
+          "internalType": "uint8",
+          "name": "",
+          "type": "uint8"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_token",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_factSet",
+          "type": "uint256"
+        }
+      ],
+      "name": "addUpdateERC20",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "string",
+          "name": "factCode",
+          "type": "string"
+        }
+      ],
+      "name": "createFact",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_token",
+          "type": "address"
+        },
+        {
+          "internalType": "uint256",
+          "name": "_factSet",
+          "type": "uint256"
+        }
+      ],
+      "name": "factSetIsValidated",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint256",
+          "name": "_factSet",
+          "type": "uint256"
+        }
+      ],
+      "name": "factSetToFacts",
+      "outputs": [
+        {
+          "internalType": "uint8[]",
+          "name": "",
+          "type": "uint8[]"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_token",
+          "type": "address"
+        },
+        {
+          "internalType": "uint8[]",
+          "name": "_facts",
+          "type": "uint8[]"
+        }
+      ],
+      "name": "factsAreValidated",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "uint8[]",
+          "name": "_facts",
+          "type": "uint8[]"
+        }
+      ],
+      "name": "factsToFactSet",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "factSet",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "pure",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "highwaterFact",
+      "outputs": [
+        {
+          "internalType": "uint8",
+          "name": "",
+          "type": "uint8"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "owner",
+      "outputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [],
+      "name": "renounceOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "",
+          "type": "address"
+        }
+      ],
+      "name": "tokenFacts",
+      "outputs": [
+        {
+          "internalType": "uint256",
+          "name": "",
+          "type": "uint256"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_token",
+          "type": "address"
+        }
+      ],
+      "name": "tokenIsRegistered",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "_token",
+          "type": "address"
+        }
+      ],
+      "name": "tokenIsValidERC20",
+      "outputs": [
+        {
+          "internalType": "bool",
+          "name": "",
+          "type": "bool"
+        }
+      ],
+      "stateMutability": "view",
+      "type": "function"
+    },
+    {
+      "inputs": [
+        {
+          "internalType": "address",
+          "name": "newOwner",
+          "type": "address"
+        }
+      ],
+      "name": "transferOwnership",
+      "outputs": [],
+      "stateMutability": "nonpayable",
+      "type": "function"
+    }
+  ],
+  "transactionHash": "0x8c5833d45a89692743b004649a1053a00552b6442e8779f2f07740f9618fec35",
+  "receipt": {
+    "to": null,
+    "from": "0xa14aa51b503548D560fB7cf4c2f4a14F19fE44b3",
+    "contractAddress": "0xCCB7f9a06fCfbDd8A4F0C3F177648aa696eb5506",
+    "transactionIndex": 14,
+    "gasUsed": "789403",
+    "logsBloom": "0x00000000000000000004000000000000000000000000000002800000000000000000000000000000000004000000000000000000000000000000000000000000000000000000000000000000000000000001000000000000800000000000000000040000020000000000000000100800000000000000000000000000000800400400008000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000020000000000000000000000000000000000000000000000000000000000000000000000000000000000000000020000000400000000000000000000000000000000000000000000040000000000000",
+    "blockHash": "0xf01d56b8eb99e159f6ab30ab596730ce4d1a2ef8be42c2cb049f2c69fbadebc6",
+    "transactionHash": "0x8c5833d45a89692743b004649a1053a00552b6442e8779f2f07740f9618fec35",
+    "logs": [
+      {
+        "transactionIndex": 14,
+        "blockNumber": 6948271,
+        "transactionHash": "0x8c5833d45a89692743b004649a1053a00552b6442e8779f2f07740f9618fec35",
+        "address": "0xCCB7f9a06fCfbDd8A4F0C3F177648aa696eb5506",
+        "topics": [
+          "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0",
+          "0x0000000000000000000000000000000000000000000000000000000000000000",
+          "0x000000000000000000000000a14aa51b503548d560fb7cf4c2f4a14f19fe44b3"
+        ],
+        "data": "0x",
+        "logIndex": 79,
+        "blockHash": "0xf01d56b8eb99e159f6ab30ab596730ce4d1a2ef8be42c2cb049f2c69fbadebc6"
+      },
+      {
+        "transactionIndex": 14,
+        "blockNumber": 6948271,
+        "transactionHash": "0x8c5833d45a89692743b004649a1053a00552b6442e8779f2f07740f9618fec35",
+        "address": "0xCCB7f9a06fCfbDd8A4F0C3F177648aa696eb5506",
+        "topics": [
+          "0x8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e0",
+          "0x000000000000000000000000a14aa51b503548d560fb7cf4c2f4a14f19fe44b3",
+          "0x000000000000000000000000390c1d7ae1b18183a6e0b59d6d5ae7efd53b76fe"
+        ],
+        "data": "0x",
+        "logIndex": 80,
+        "blockHash": "0xf01d56b8eb99e159f6ab30ab596730ce4d1a2ef8be42c2cb049f2c69fbadebc6"
+      },
+      {
+        "transactionIndex": 14,
+        "blockNumber": 6948271,
+        "transactionHash": "0x8c5833d45a89692743b004649a1053a00552b6442e8779f2f07740f9618fec35",
+        "address": "0xCCB7f9a06fCfbDd8A4F0C3F177648aa696eb5506",
+        "topics": [
+          "0xd02f2898083065cf59593c40179cbd143762ea3a36c41d81e79fa6cbe6cde72d"
+        ],
+        "data": "0x00000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000000d49535f5245474953544552454400000000000000000000000000000000000000",
+        "logIndex": 81,
+        "blockHash": "0xf01d56b8eb99e159f6ab30ab596730ce4d1a2ef8be42c2cb049f2c69fbadebc6"
+      },
+      {
+        "transactionIndex": 14,
+        "blockNumber": 6948271,
+        "transactionHash": "0x8c5833d45a89692743b004649a1053a00552b6442e8779f2f07740f9618fec35",
+        "address": "0xCCB7f9a06fCfbDd8A4F0C3F177648aa696eb5506",
+        "topics": [
+          "0xd02f2898083065cf59593c40179cbd143762ea3a36c41d81e79fa6cbe6cde72d"
+        ],
+        "data": "0x00000000000000000000000000000000000000000000000000000000000000010000000000000000000000000000000000000000000000000000000000000040000000000000000000000000000000000000000000000000000000000000000e49535f56414c49445f4552433230000000000000000000000000000000000000",
+        "logIndex": 82,
+        "blockHash": "0xf01d56b8eb99e159f6ab30ab596730ce4d1a2ef8be42c2cb049f2c69fbadebc6"
+      }
+    ],
+    "blockNumber": 6948271,
+    "cumulativeGasUsed": "10883769",
+    "status": 1,
+    "byzantium": true
+  },
+  "args": ["0x390c1D7aE1B18183a6E0b59d6D5AE7Efd53b76fE"],
+  "numDeployments": 1,
+  "solcInputHash": "dbc2ec6491d829a96176cf0c8cb68789",
+  "metadata": "{\"compiler\":{\"version\":\"0.8.14+commit.80d49f37\"},\"language\":\"Solidity\",\"output\":{\"abi\":[{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_governor\",\"type\":\"address\"}],\"stateMutability\":\"nonpayable\",\"type\":\"constructor\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":false,\"internalType\":\"uint8\",\"name\":\"fact\",\"type\":\"uint8\"},{\"indexed\":false,\"internalType\":\"string\",\"name\":\"code\",\"type\":\"string\"}],\"name\":\"ERC20FactCreated\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"token\",\"type\":\"address\"},{\"indexed\":false,\"internalType\":\"uint256\",\"name\":\"validatedFacts\",\"type\":\"uint256\"}],\"name\":\"ERC20ValidatedFacts\",\"type\":\"event\"},{\"anonymous\":false,\"inputs\":[{\"indexed\":true,\"internalType\":\"address\",\"name\":\"previousOwner\",\"type\":\"address\"},{\"indexed\":true,\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"OwnershipTransferred\",\"type\":\"event\"},{\"inputs\":[],\"name\":\"IS_REGISTERED\",\"outputs\":[{\"internalType\":\"uint8\",\"name\":\"\",\"type\":\"uint8\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"IS_VALID_ERC20\",\"outputs\":[{\"internalType\":\"uint8\",\"name\":\"\",\"type\":\"uint8\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_factSet\",\"type\":\"uint256\"}],\"name\":\"addUpdateERC20\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"string\",\"name\":\"factCode\",\"type\":\"string\"}],\"name\":\"createFact\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_token\",\"type\":\"address\"},{\"internalType\":\"uint256\",\"name\":\"_factSet\",\"type\":\"uint256\"}],\"name\":\"factSetIsValidated\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint256\",\"name\":\"_factSet\",\"type\":\"uint256\"}],\"name\":\"factSetToFacts\",\"outputs\":[{\"internalType\":\"uint8[]\",\"name\":\"\",\"type\":\"uint8[]\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_token\",\"type\":\"address\"},{\"internalType\":\"uint8[]\",\"name\":\"_facts\",\"type\":\"uint8[]\"}],\"name\":\"factsAreValidated\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"uint8[]\",\"name\":\"_facts\",\"type\":\"uint8[]\"}],\"name\":\"factsToFactSet\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"factSet\",\"type\":\"uint256\"}],\"stateMutability\":\"pure\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"highwaterFact\",\"outputs\":[{\"internalType\":\"uint8\",\"name\":\"\",\"type\":\"uint8\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"owner\",\"outputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[],\"name\":\"renounceOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"\",\"type\":\"address\"}],\"name\":\"tokenFacts\",\"outputs\":[{\"internalType\":\"uint256\",\"name\":\"\",\"type\":\"uint256\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_token\",\"type\":\"address\"}],\"name\":\"tokenIsRegistered\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"_token\",\"type\":\"address\"}],\"name\":\"tokenIsValidERC20\",\"outputs\":[{\"internalType\":\"bool\",\"name\":\"\",\"type\":\"bool\"}],\"stateMutability\":\"view\",\"type\":\"function\"},{\"inputs\":[{\"internalType\":\"address\",\"name\":\"newOwner\",\"type\":\"address\"}],\"name\":\"transferOwnership\",\"outputs\":[],\"stateMutability\":\"nonpayable\",\"type\":\"function\"}],\"devdoc\":{\"author\":\"Paul Czajka [paul.czajka@gmail.com]\",\"events\":{\"ERC20FactCreated(uint8,string)\":{\"params\":{\"code\":\"The short descriptive code for this fact.\",\"fact\":\"The unique fact identifer: also the identifier of the fact in token factSets.\"}},\"ERC20ValidatedFacts(address,uint256)\":{\"params\":{\"token\":\"The token\",\"validatedFacts\":\"The new validated fact set of the token\"}}},\"kind\":\"dev\",\"methods\":{\"addUpdateERC20(address,uint256)\":{\"details\":\"If the token already exists, its present factSet will be entirely overwritten by this new value.\",\"params\":{\"_factSet\":\"The set of all validated facts for the token\",\"_token\":\"The token\"}},\"constructor\":{\"params\":{\"_governor\":\"The owning Governance contract\"}},\"createFact(string)\":{\"details\":\"The fact identifer will be the next available bit-position, according to present `highwaterFact`\",\"params\":{\"factCode\":\"The code for the fact being created\"}},\"factSetIsValidated(address,uint256)\":{\"params\":{\"_factSet\":\"The flattened uint256 fact set to be validated\",\"_token\":\"The token\"}},\"factSetToFacts(uint256)\":{\"details\":\"Does not validate that any particular fact values exist\",\"params\":{\"_factSet\":\"The fact set to convert into an array of fact values\"},\"returns\":{\"_0\":\"uint8[]\"}},\"factsAreValidated(address,uint8[])\":{\"params\":{\"_facts\":\"The array of uint8 fact ids to be validated\",\"_token\":\"The token\"},\"returns\":{\"_0\":\"bool\"}},\"factsToFactSet(uint8[])\":{\"details\":\"Does not validate that any particular fact values exist\",\"params\":{\"_facts\":\"The array of fact values to convert into a fact set\"},\"returns\":{\"factSet\":\"factSet\"}},\"owner()\":{\"details\":\"Returns the address of the current owner.\"},\"renounceOwnership()\":{\"details\":\"Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner.\"},\"tokenIsRegistered(address)\":{\"params\":{\"_token\":\"The token\"},\"returns\":{\"_0\":\"bool\"}},\"tokenIsValidERC20(address)\":{\"params\":{\"_token\":\"The token\"},\"returns\":{\"_0\":\"bool\"}},\"transferOwnership(address)\":{\"details\":\"Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner.\"}},\"title\":\"ERC20Registry\",\"version\":1},\"userdoc\":{\"events\":{\"ERC20FactCreated(uint8,string)\":{\"notice\":\"Emitted when a new fact is created.\"},\"ERC20ValidatedFacts(address,uint256)\":{\"notice\":\"Emitted when a token's set of validated facts is added/updated\"}},\"kind\":\"user\",\"methods\":{\"addUpdateERC20(address,uint256)\":{\"notice\":\"Add or update an ERC20 token with its set of validated facts.\"},\"createFact(string)\":{\"notice\":\"Create a new fact available for all tokens. Existing tokens will have a `false` value for this fact, which can be updated by governance actions\"},\"factSetIsValidated(address,uint256)\":{\"notice\":\"Return whether a token conforms to a set of facts. This method returns true if the token conforms to all flagged facts: any facts above and beyond the flagged ones are not accounted for and wil have no impact on the result.\"},\"factSetToFacts(uint256)\":{\"notice\":\"Convert an factSet value into an array of fact values\"},\"factsAreValidated(address,uint8[])\":{\"notice\":\"Return whether specific facts have all been validated for a token.\"},\"factsToFactSet(uint8[])\":{\"notice\":\"Convert an array of fact values into a single factSet value\"},\"highwaterFact()\":{\"notice\":\"High-water mark for the highest fact id (factSet bit-position)\"},\"tokenFacts(address)\":{\"notice\":\"Maps a token address to its set of validated facts\"},\"tokenIsRegistered(address)\":{\"notice\":\"Convenience method to determine if a particular token exists in this registry\"},\"tokenIsValidERC20(address)\":{\"notice\":\"Convenience method to determine if a particular token is a valid ERC20 implementation\"}},\"notice\":\"Tokenscope ERC20 token registry\",\"version\":1}},\"settings\":{\"compilationTarget\":{\"contracts/ERC20Registry.sol\":\"ERC20Registry\"},\"evmVersion\":\"london\",\"libraries\":{},\"metadata\":{\"bytecodeHash\":\"ipfs\",\"useLiteralContent\":true},\"optimizer\":{\"enabled\":true,\"runs\":2000},\"remappings\":[]},\"sources\":{\"@openzeppelin/contracts/access/Ownable.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts v4.4.1 (access/Ownable.sol)\\n\\npragma solidity ^0.8.0;\\n\\nimport \\\"../utils/Context.sol\\\";\\n\\n/**\\n * @dev Contract module which provides a basic access control mechanism, where\\n * there is an account (an owner) that can be granted exclusive access to\\n * specific functions.\\n *\\n * By default, the owner account will be the one that deploys the contract. This\\n * can later be changed with {transferOwnership}.\\n *\\n * This module is used through inheritance. It will make available the modifier\\n * `onlyOwner`, which can be applied to your functions to restrict their use to\\n * the owner.\\n */\\nabstract contract Ownable is Context {\\n    address private _owner;\\n\\n    event OwnershipTransferred(address indexed previousOwner, address indexed newOwner);\\n\\n    /**\\n     * @dev Initializes the contract setting the deployer as the initial owner.\\n     */\\n    constructor() {\\n        _transferOwnership(_msgSender());\\n    }\\n\\n    /**\\n     * @dev Returns the address of the current owner.\\n     */\\n    function owner() public view virtual returns (address) {\\n        return _owner;\\n    }\\n\\n    /**\\n     * @dev Throws if called by any account other than the owner.\\n     */\\n    modifier onlyOwner() {\\n        require(owner() == _msgSender(), \\\"Ownable: caller is not the owner\\\");\\n        _;\\n    }\\n\\n    /**\\n     * @dev Leaves the contract without owner. It will not be possible to call\\n     * `onlyOwner` functions anymore. Can only be called by the current owner.\\n     *\\n     * NOTE: Renouncing ownership will leave the contract without an owner,\\n     * thereby removing any functionality that is only available to the owner.\\n     */\\n    function renounceOwnership() public virtual onlyOwner {\\n        _transferOwnership(address(0));\\n    }\\n\\n    /**\\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\\n     * Can only be called by the current owner.\\n     */\\n    function transferOwnership(address newOwner) public virtual onlyOwner {\\n        require(newOwner != address(0), \\\"Ownable: new owner is the zero address\\\");\\n        _transferOwnership(newOwner);\\n    }\\n\\n    /**\\n     * @dev Transfers ownership of the contract to a new account (`newOwner`).\\n     * Internal function without access restriction.\\n     */\\n    function _transferOwnership(address newOwner) internal virtual {\\n        address oldOwner = _owner;\\n        _owner = newOwner;\\n        emit OwnershipTransferred(oldOwner, newOwner);\\n    }\\n}\\n\",\"keccak256\":\"0x24e0364e503a9bbde94c715d26573a76f14cd2a202d45f96f52134ab806b67b9\",\"license\":\"MIT\"},\"@openzeppelin/contracts/utils/Context.sol\":{\"content\":\"// SPDX-License-Identifier: MIT\\n// OpenZeppelin Contracts v4.4.1 (utils/Context.sol)\\n\\npragma solidity ^0.8.0;\\n\\n/**\\n * @dev Provides information about the current execution context, including the\\n * sender of the transaction and its data. While these are generally available\\n * via msg.sender and msg.data, they should not be accessed in such a direct\\n * manner, since when dealing with meta-transactions the account sending and\\n * paying for execution may not be the actual sender (as far as an application\\n * is concerned).\\n *\\n * This contract is only required for intermediate, library-like contracts.\\n */\\nabstract contract Context {\\n    function _msgSender() internal view virtual returns (address) {\\n        return msg.sender;\\n    }\\n\\n    function _msgData() internal view virtual returns (bytes calldata) {\\n        return msg.data;\\n    }\\n}\\n\",\"keccak256\":\"0xe2e337e6dde9ef6b680e07338c493ebea1b5fd09b43424112868e9cc1706bca7\",\"license\":\"MIT\"},\"contracts/ERC20Registry.sol\":{\"content\":\"//SPDX-License-Identifier: Unlicense\\npragma solidity ^0.8.0;\\n\\nimport \\\"@openzeppelin/contracts/access/Ownable.sol\\\";\\n\\n/// @title ERC20Registry\\n/// @author Paul Czajka [paul.czajka@gmail.com]\\n/// @notice Tokenscope ERC20 token registry\\ncontract ERC20Registry is Ownable {\\n    // This contract stores up to 256 unique facts for each token.\\n    // A fact has two parts:\\n    //   id: a uint8 value, 0 - 255\\n    //   code: a string description of the fact\\n    //\\n    // Fact codes are not stored on-chain: they are emitted as events\\n    // upon creation. Fact ids are assigned in sequential order, and\\n    // this contract is only aware of the current highwater fact id,\\n    // which defines the list of valid fact ids as 0 through highwater inclusive.\\n    //\\n    // Each fact code needs to be formulated such that a fact value of '1'\\n    // means the fact has been validated by governance.  A fact value\\n    // of '0' means the fact has not been validated, so it can be either not true\\n    // or not yet validated. Client contract authors special take note of this.\\n    //\\n    // Each uint8 fact id correlates to the bit-position of a uint256,\\n    // so the entire 256 fact-space for a single token can be condensed\\n    // into a single uint256. This flattened representation of the entire\\n    // fact space is termed a 'factSet'.\\n    //\\n    // Client contracts can query a set of facts for a token in one of two ways:\\n    // - areFactsValidated() accepts an array of uint8 fact ids\\n    // - isFactSetValidated() accepts a flattened uint256 factSet\\n    // These methods return true IFF all represented facts have been validated.\\n    //\\n    // Note that isFactSetValidated() will not produce correct results if supplied\\n    // with a uint256-casted fact id.  Use factsToFactSet() to convert individual\\n    // fact ids to a correct factSet representation.\\n\\n    // Standard facts\\n    uint8 public constant IS_REGISTERED = 0; // Token exists in this contract. Set to 1 when added to registry\\n    uint8 public constant IS_VALID_ERC20 = 1; // Token conforms to ERC20 standard. Set by governance\\n\\n    /// High-water mark for the highest fact id (factSet bit-position)\\n    uint8 public highwaterFact = 1;\\n\\n    /// Maps a token address to its set of validated facts\\n    mapping(address => uint256) public tokenFacts;\\n\\n    /// Emitted when a new fact is created.\\n    /// @param fact The unique fact identifer: also the identifier of the fact in token factSets.\\n    /// @param code The short descriptive code for this fact.\\n    event ERC20FactCreated(uint8 fact, string code);\\n\\n    /// Emitted when a token's set of validated facts is added/updated\\n    /// @param token The token\\n    /// @param validatedFacts The new validated fact set of the token\\n    event ERC20ValidatedFacts(address indexed token, uint256 validatedFacts);\\n\\n    /// @param _governor The owning Governance contract\\n    constructor(address _governor) {\\n        // Governance contract is owner\\n        transferOwnership(_governor);\\n\\n        // factCreated events are the effective \\\"catalog\\\" of facts available.\\n        // Emit the first to common facts so they show up in the catalog like all the rest.\\n        emit ERC20FactCreated(IS_REGISTERED, \\\"IS_REGISTERED\\\");\\n        emit ERC20FactCreated(IS_VALID_ERC20, \\\"IS_VALID_ERC20\\\");\\n    }\\n\\n    /// The token must be registered\\n    /// @param _token The token\\n    modifier isRegistered(address _token) {\\n        require(\\n            tokenFacts[_token] & IS_REGISTERED == IS_REGISTERED,\\n            \\\"TOKEN_NOT_REGISTERED\\\"\\n        );\\n        _;\\n    }\\n\\n    /// The fact set must only represent facts that have been defined (bit position <= high water mark)\\n    /// @param _factSet The fact set\\n    modifier validFactSet(uint256 _factSet) {\\n        if (highwaterFact < 255) {\\n            // The highest valid factSet value would have all bits set to 1 for all created facts.\\n            // \\\"1 << (highwaterFact + 1)\\\" creates a factSet that exceeds this number by 1:\\n            // subtracting one yields the value where all bits are set to 1 for all created facts.\\n            require(\\n                _factSet <= (1 << (highwaterFact + 1)) - 1,\\n                \\\"INVALID_FACT_SET\\\"\\n            );\\n        }\\n        _;\\n    }\\n\\n    function _isValidated(address _token, uint256 _factSet)\\n        private\\n        view\\n        returns (bool)\\n    {\\n        // An individual fact is validated if its bit-position is set to 1.\\n        // We can validate multiple facts at once.\\n        return tokenFacts[_token] & _factSet == _factSet;\\n    }\\n\\n    /*/////////////////////////////////////////////////////////////////////////////////\\n        Registry Administration\\n    /////////////////////////////////////////////////////////////////////////////////*/\\n\\n    /// Create a new fact available for all tokens.\\n    /// Existing tokens will have a `false` value for this fact, which can be updated by governance actions\\n    /// @param factCode The code for the fact being created\\n    /// @dev The fact identifer will be the next available bit-position, according to present `highwaterFact`\\n    function createFact(string calldata factCode) external onlyOwner {\\n        require(highwaterFact < 255, \\\"MAX_FACTS_REACHED\\\");\\n\\n        emit ERC20FactCreated(++highwaterFact, factCode);\\n    }\\n\\n    /// Add or update an ERC20 token with its set of validated facts.\\n    /// @param _token The token\\n    /// @param _factSet The set of all validated facts for the token\\n    /// @dev If the token already exists, its present factSet will be entirely overwritten by this new value.\\n    function addUpdateERC20(address _token, uint256 _factSet)\\n        external\\n        onlyOwner\\n        validFactSet(_factSet)\\n    {\\n        // The IS_REGISTERED attr is always true in storage\\n        //  (1 << IS_REGISTERED) = 1\\n        tokenFacts[_token] = _factSet | 1;\\n\\n        emit ERC20ValidatedFacts(_token, _factSet | 1);\\n    }\\n\\n    /*/////////////////////////////////////////////////////////////////////////////////\\n        Registry Querying\\n    /////////////////////////////////////////////////////////////////////////////////*/\\n\\n    /// Convenience method to determine if a particular token exists in this registry\\n    /// @param _token The token\\n    /// @return bool\\n    function tokenIsRegistered(address _token) external view returns (bool) {\\n        // Second argument: 1 << IS_REGISTERED = 1\\n        return _isValidated(_token, 1);\\n    }\\n\\n    /// Convenience method to determine if a particular token is a valid ERC20 implementation\\n    /// @param _token The token\\n    /// @return bool\\n    function tokenIsValidERC20(address _token)\\n        external\\n        view\\n        isRegistered(_token)\\n        returns (bool)\\n    {\\n        // Second argument: 1 << IS_VALID_ERC20 = 2\\n        return _isValidated(_token, 2);\\n    }\\n\\n    /// Return whether specific facts have all been validated for a token.\\n    /// @param _token The token\\n    /// @param _facts The array of uint8 fact ids to be validated\\n    /// @return bool\\n    function factsAreValidated(address _token, uint8[] calldata _facts)\\n        external\\n        view\\n        isRegistered(_token)\\n        returns (bool)\\n    {\\n        return factSetIsValidated(_token, factsToFactSet(_facts));\\n    }\\n\\n    /// Return whether a token conforms to a set of facts.\\n    /// This method returns true if the token conforms to all flagged facts:\\n    /// any facts above and beyond the flagged ones are not accounted for and wil have no impact on the result.\\n    /// @param _token The token\\n    /// @param _factSet The flattened uint256 fact set to be validated\\n    function factSetIsValidated(address _token, uint256 _factSet)\\n        public\\n        view\\n        isRegistered(_token)\\n        validFactSet(_factSet)\\n        returns (bool)\\n    {\\n        return _isValidated(_token, _factSet);\\n    }\\n\\n    /*/////////////////////////////////////////////////////////////////////////////////\\n        Utility Conversion Methods\\n    /////////////////////////////////////////////////////////////////////////////////*/\\n\\n    /// Convert an array of fact values into a single factSet value\\n    /// @dev Does not validate that any particular fact values exist\\n    /// @param _facts The array of fact values to convert into a fact set\\n    /// @return factSet\\n    function factsToFactSet(uint8[] calldata _facts)\\n        public\\n        pure\\n        returns (uint256 factSet)\\n    {\\n        uint256 len = _facts.length;\\n        for (uint256 i = 0; i < len; ++i) {\\n            factSet = factSet | (1 << _facts[i]);\\n        }\\n    }\\n\\n    /// Convert an factSet value into an array of fact values\\n    /// @dev Does not validate that any particular fact values exist\\n    /// @param _factSet The fact set to convert into an array of fact values\\n    /// @return uint8[]\\n    function factSetToFacts(uint256 _factSet)\\n        external\\n        pure\\n        returns (uint8[] memory)\\n    {\\n        // We can't create a dynamic memory array, so we need to loop twice:\\n        // 1) Discover the number of facts. Then we size the facts array appropriately\\n        // 2) Populate the facts array\\n        uint8 n;\\n        uint256 factSetCopy = _factSet;\\n\\n        // Determine the number of facts\\n        for (uint8 i = 0; i < 255; ++i) {\\n            if (factSetCopy & 1 == 1) {\\n                ++n;\\n            }\\n            factSetCopy = factSetCopy >> 1;\\n        }\\n\\n        // Size the return array appropriately\\n        uint8[] memory facts = new uint8[](n);\\n        n = 0;\\n        factSetCopy = _factSet;\\n\\n        // Populate the facts\\n        for (uint8 i = 0; i < 255; ++i) {\\n            if (factSetCopy & 1 == 1) {\\n                facts[n++] = i;\\n            }\\n            factSetCopy = factSetCopy >> 1;\\n        }\\n\\n        return facts;\\n    }\\n}\\n\",\"keccak256\":\"0xa88b9f29cfa55845be436b3bb2de3f288f7632c7d9f33ea3425a1b27ba8198f4\",\"license\":\"Unlicense\"}},\"version\":1}",
+  "bytecode": "0x60806040526000805460ff60a01b1916600160a01b17905534801561002357600080fd5b50604051610f03380380610f0383398101604081905261004291610205565b61004b336100e5565b61005481610135565b604080516000815260208101829052600d818301526c1254d7d49151d254d511549151609a1b60608201529051600080516020610ee38339815191529181900360800190a1604080516001815260208101829052600e818301526d049535f56414c49445f45524332360941b60608201529051600080516020610ee38339815191529181900360800190a150610235565b600080546001600160a01b038381166001600160a01b0319831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b6000546001600160a01b031633146101945760405162461bcd60e51b815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e657260448201526064015b60405180910390fd5b6001600160a01b0381166101f95760405162461bcd60e51b815260206004820152602660248201527f4f776e61626c653a206e6577206f776e657220697320746865207a65726f206160448201526564647265737360d01b606482015260840161018b565b610202816100e5565b50565b60006020828403121561021757600080fd5b81516001600160a01b038116811461022e57600080fd5b9392505050565b610c9f806102446000396000f3fe608060405234801561001057600080fd5b50600436106100f55760003560e01c8063781eb9a111610097578063d38d8e6a11610066578063d38d8e6a14610222578063f2fde38b14610235578063f3dda2fa14610248578063f43c82fa1461025057600080fd5b8063781eb9a1146101bd578063805b5b74146101c55780638da5cb5b146101f4578063a85bba771461020f57600080fd5b806358b63307116100d357806358b633071461014b57806364c6aacb1461016e57806368ff842414610194578063715018a6146101b557600080fd5b8063185d246c146100fa578063244828fe14610123578063265eb5b714610138575b600080fd5b61010d610108366004610906565b610270565b60405161011a919061091f565b60405180910390f35b610136610131366004610966565b610373565b005b6101366101463660046109f4565b61049e565b61015e610159366004610a6a565b6105e1565b604051901515815260200161011a565b60005461018290600160a01b900460ff1681565b60405160ff909116815260200161011a565b6101a76101a2366004610abd565b61060d565b60405190815260200161011a565b610136610665565b610182600181565b61015e6101d3366004610aff565b6001600160a01b031660009081526001602081905260409091205481161490565b6000546040516001600160a01b03909116815260200161011a565b61015e61021d3660046109f4565b6106cb565b61015e610230366004610aff565b610793565b610136610243366004610aff565b6107bc565b610182600081565b6101a761025e366004610aff565b60016020526000908152604090205481565b6060600082815b60ff8160ff1610156102b1578160011660010361029a5761029783610b30565b92505b60019190911c906102aa81610b30565b9050610277565b5060008260ff1667ffffffffffffffff8111156102d0576102d0610b4f565b6040519080825280602002602001820160405280156102f9578160200160208202803683370190505b5090506000925084915060005b60ff8160ff16101561036a57826001166001036103535780828561032981610b30565b965060ff168151811061033e5761033e610b65565b602002602001019060ff16908160ff16815250505b60019290921c9161036381610b30565b9050610306565b50949350505050565b6000546001600160a01b031633146103d25760405162461bcd60e51b815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e657260448201526064015b60405180910390fd5b60005460ff600160a01b90910481161061042e5760405162461bcd60e51b815260206004820152601160248201527f4d41585f46414354535f5245414348454400000000000000000000000000000060448201526064016103c9565b7fd02f2898083065cf59593c40179cbd143762ea3a36c41d81e79fa6cbe6cde72d6000601481819054906101000a900460ff1661046a90610b30565b91906101000a81548160ff021916908360ff1602179055838360405161049293929190610b7b565b60405180910390a15050565b6000546001600160a01b031633146104f85760405162461bcd60e51b815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e657260448201526064016103c9565b600054819060ff600160a01b909104811610156105895760005460019061052990600160a01b900460ff1682610bd2565b60ff166001901b61053a9190610bf7565b8111156105895760405162461bcd60e51b815260206004820152601060248201527f494e56414c49445f464143545f5345540000000000000000000000000000000060448201526064016103c9565b6001600160a01b0383166000818152600160208181526040928390209186179182905591519081527fefcc11f79dded5ecd757a912f529d053c1edd593f9c373182fa858023d99c74f910160405180910390a2505050565b6001600160a01b03831660009081526001602052836106048561021d868661060d565b95945050505050565b600081815b8181101561065d5784848281811061062c5761062c610b65565b90506020020160208101906106419190610c0e565b60ff166001901b831792508061065690610c31565b9050610612565b505092915050565b6000546001600160a01b031633146106bf5760405162461bcd60e51b815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e657260448201526064016103c9565b6106c9600061089e565b565b6001600160a01b0382166000908152600160205282600054839060ff600160a01b909104811610156107715760005460019061071190600160a01b900460ff1682610bd2565b60ff166001901b6107229190610bf7565b8111156107715760405162461bcd60e51b815260206004820152601060248201527f494e56414c49445f464143545f5345540000000000000000000000000000000060448201526064016103c9565b6001600160a01b03851660009081526001602052604090205484168414610604565b6001600160a01b03811660009081526001602052604081205482906002908116145b9392505050565b6000546001600160a01b031633146108165760405162461bcd60e51b815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e657260448201526064016103c9565b6001600160a01b0381166108925760405162461bcd60e51b815260206004820152602660248201527f4f776e61626c653a206e6577206f776e657220697320746865207a65726f206160448201527f646472657373000000000000000000000000000000000000000000000000000060648201526084016103c9565b61089b8161089e565b50565b600080546001600160a01b038381167fffffffffffffffffffffffff0000000000000000000000000000000000000000831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b60006020828403121561091857600080fd5b5035919050565b6020808252825182820181905260009190848201906040850190845b8181101561095a57835160ff168352928401929184019160010161093b565b50909695505050505050565b6000806020838503121561097957600080fd5b823567ffffffffffffffff8082111561099157600080fd5b818501915085601f8301126109a557600080fd5b8135818111156109b457600080fd5b8660208285010111156109c657600080fd5b60209290920196919550909350505050565b80356001600160a01b03811681146109ef57600080fd5b919050565b60008060408385031215610a0757600080fd5b610a10836109d8565b946020939093013593505050565b60008083601f840112610a3057600080fd5b50813567ffffffffffffffff811115610a4857600080fd5b6020830191508360208260051b8501011115610a6357600080fd5b9250929050565b600080600060408486031215610a7f57600080fd5b610a88846109d8565b9250602084013567ffffffffffffffff811115610aa457600080fd5b610ab086828701610a1e565b9497909650939450505050565b60008060208385031215610ad057600080fd5b823567ffffffffffffffff811115610ae757600080fd5b610af385828601610a1e565b90969095509350505050565b600060208284031215610b1157600080fd5b6107b5826109d8565b634e487b7160e01b600052601160045260246000fd5b600060ff821660ff8103610b4657610b46610b1a565b60010192915050565b634e487b7160e01b600052604160045260246000fd5b634e487b7160e01b600052603260045260246000fd5b60ff8416815260406020820152816040820152818360608301376000818301606090810191909152601f9092017fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe016010192915050565b600060ff821660ff84168060ff03821115610bef57610bef610b1a565b019392505050565b600082821015610c0957610c09610b1a565b500390565b600060208284031215610c2057600080fd5b813560ff811681146107b557600080fd5b60007fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8203610c6257610c62610b1a565b506001019056fea2646970667358221220a57b6d8468859731715e9c39b1a97e1c0770354a8aff152a7a3e3a54d350dcb864736f6c634300080e0033d02f2898083065cf59593c40179cbd143762ea3a36c41d81e79fa6cbe6cde72d",
+  "deployedBytecode": "0x608060405234801561001057600080fd5b50600436106100f55760003560e01c8063781eb9a111610097578063d38d8e6a11610066578063d38d8e6a14610222578063f2fde38b14610235578063f3dda2fa14610248578063f43c82fa1461025057600080fd5b8063781eb9a1146101bd578063805b5b74146101c55780638da5cb5b146101f4578063a85bba771461020f57600080fd5b806358b63307116100d357806358b633071461014b57806364c6aacb1461016e57806368ff842414610194578063715018a6146101b557600080fd5b8063185d246c146100fa578063244828fe14610123578063265eb5b714610138575b600080fd5b61010d610108366004610906565b610270565b60405161011a919061091f565b60405180910390f35b610136610131366004610966565b610373565b005b6101366101463660046109f4565b61049e565b61015e610159366004610a6a565b6105e1565b604051901515815260200161011a565b60005461018290600160a01b900460ff1681565b60405160ff909116815260200161011a565b6101a76101a2366004610abd565b61060d565b60405190815260200161011a565b610136610665565b610182600181565b61015e6101d3366004610aff565b6001600160a01b031660009081526001602081905260409091205481161490565b6000546040516001600160a01b03909116815260200161011a565b61015e61021d3660046109f4565b6106cb565b61015e610230366004610aff565b610793565b610136610243366004610aff565b6107bc565b610182600081565b6101a761025e366004610aff565b60016020526000908152604090205481565b6060600082815b60ff8160ff1610156102b1578160011660010361029a5761029783610b30565b92505b60019190911c906102aa81610b30565b9050610277565b5060008260ff1667ffffffffffffffff8111156102d0576102d0610b4f565b6040519080825280602002602001820160405280156102f9578160200160208202803683370190505b5090506000925084915060005b60ff8160ff16101561036a57826001166001036103535780828561032981610b30565b965060ff168151811061033e5761033e610b65565b602002602001019060ff16908160ff16815250505b60019290921c9161036381610b30565b9050610306565b50949350505050565b6000546001600160a01b031633146103d25760405162461bcd60e51b815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e657260448201526064015b60405180910390fd5b60005460ff600160a01b90910481161061042e5760405162461bcd60e51b815260206004820152601160248201527f4d41585f46414354535f5245414348454400000000000000000000000000000060448201526064016103c9565b7fd02f2898083065cf59593c40179cbd143762ea3a36c41d81e79fa6cbe6cde72d6000601481819054906101000a900460ff1661046a90610b30565b91906101000a81548160ff021916908360ff1602179055838360405161049293929190610b7b565b60405180910390a15050565b6000546001600160a01b031633146104f85760405162461bcd60e51b815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e657260448201526064016103c9565b600054819060ff600160a01b909104811610156105895760005460019061052990600160a01b900460ff1682610bd2565b60ff166001901b61053a9190610bf7565b8111156105895760405162461bcd60e51b815260206004820152601060248201527f494e56414c49445f464143545f5345540000000000000000000000000000000060448201526064016103c9565b6001600160a01b0383166000818152600160208181526040928390209186179182905591519081527fefcc11f79dded5ecd757a912f529d053c1edd593f9c373182fa858023d99c74f910160405180910390a2505050565b6001600160a01b03831660009081526001602052836106048561021d868661060d565b95945050505050565b600081815b8181101561065d5784848281811061062c5761062c610b65565b90506020020160208101906106419190610c0e565b60ff166001901b831792508061065690610c31565b9050610612565b505092915050565b6000546001600160a01b031633146106bf5760405162461bcd60e51b815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e657260448201526064016103c9565b6106c9600061089e565b565b6001600160a01b0382166000908152600160205282600054839060ff600160a01b909104811610156107715760005460019061071190600160a01b900460ff1682610bd2565b60ff166001901b6107229190610bf7565b8111156107715760405162461bcd60e51b815260206004820152601060248201527f494e56414c49445f464143545f5345540000000000000000000000000000000060448201526064016103c9565b6001600160a01b03851660009081526001602052604090205484168414610604565b6001600160a01b03811660009081526001602052604081205482906002908116145b9392505050565b6000546001600160a01b031633146108165760405162461bcd60e51b815260206004820181905260248201527f4f776e61626c653a2063616c6c6572206973206e6f7420746865206f776e657260448201526064016103c9565b6001600160a01b0381166108925760405162461bcd60e51b815260206004820152602660248201527f4f776e61626c653a206e6577206f776e657220697320746865207a65726f206160448201527f646472657373000000000000000000000000000000000000000000000000000060648201526084016103c9565b61089b8161089e565b50565b600080546001600160a01b038381167fffffffffffffffffffffffff0000000000000000000000000000000000000000831681178455604051919092169283917f8be0079c531659141344cd1fd0a4f28419497f9722a3daafe3b4186f6b6457e09190a35050565b60006020828403121561091857600080fd5b5035919050565b6020808252825182820181905260009190848201906040850190845b8181101561095a57835160ff168352928401929184019160010161093b565b50909695505050505050565b6000806020838503121561097957600080fd5b823567ffffffffffffffff8082111561099157600080fd5b818501915085601f8301126109a557600080fd5b8135818111156109b457600080fd5b8660208285010111156109c657600080fd5b60209290920196919550909350505050565b80356001600160a01b03811681146109ef57600080fd5b919050565b60008060408385031215610a0757600080fd5b610a10836109d8565b946020939093013593505050565b60008083601f840112610a3057600080fd5b50813567ffffffffffffffff811115610a4857600080fd5b6020830191508360208260051b8501011115610a6357600080fd5b9250929050565b600080600060408486031215610a7f57600080fd5b610a88846109d8565b9250602084013567ffffffffffffffff811115610aa457600080fd5b610ab086828701610a1e565b9497909650939450505050565b60008060208385031215610ad057600080fd5b823567ffffffffffffffff811115610ae757600080fd5b610af385828601610a1e565b90969095509350505050565b600060208284031215610b1157600080fd5b6107b5826109d8565b634e487b7160e01b600052601160045260246000fd5b600060ff821660ff8103610b4657610b46610b1a565b60010192915050565b634e487b7160e01b600052604160045260246000fd5b634e487b7160e01b600052603260045260246000fd5b60ff8416815260406020820152816040820152818360608301376000818301606090810191909152601f9092017fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffe016010192915050565b600060ff821660ff84168060ff03821115610bef57610bef610b1a565b019392505050565b600082821015610c0957610c09610b1a565b500390565b600060208284031215610c2057600080fd5b813560ff811681146107b557600080fd5b60007fffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff8203610c6257610c62610b1a565b506001019056fea2646970667358221220a57b6d8468859731715e9c39b1a97e1c0770354a8aff152a7a3e3a54d350dcb864736f6c634300080e0033",
+  "devdoc": {
+    "author": "Paul Czajka [paul.czajka@gmail.com]",
+    "events": {
+      "ERC20FactCreated(uint8,string)": {
+        "params": {
+          "code": "The short descriptive code for this fact.",
+          "fact": "The unique fact identifer: also the identifier of the fact in token factSets."
+        }
+      },
+      "ERC20ValidatedFacts(address,uint256)": {
+        "params": {
+          "token": "The token",
+          "validatedFacts": "The new validated fact set of the token"
+        }
+      }
+    },
+    "kind": "dev",
+    "methods": {
+      "addUpdateERC20(address,uint256)": {
+        "details": "If the token already exists, its present factSet will be entirely overwritten by this new value.",
+        "params": {
+          "_factSet": "The set of all validated facts for the token",
+          "_token": "The token"
+        }
+      },
+      "constructor": {
+        "params": {
+          "_governor": "The owning Governance contract"
+        }
+      },
+      "createFact(string)": {
+        "details": "The fact identifer will be the next available bit-position, according to present `highwaterFact`",
+        "params": {
+          "factCode": "The code for the fact being created"
+        }
+      },
+      "factSetIsValidated(address,uint256)": {
+        "params": {
+          "_factSet": "The flattened uint256 fact set to be validated",
+          "_token": "The token"
+        }
+      },
+      "factSetToFacts(uint256)": {
+        "details": "Does not validate that any particular fact values exist",
+        "params": {
+          "_factSet": "The fact set to convert into an array of fact values"
+        },
+        "returns": {
+          "_0": "uint8[]"
+        }
+      },
+      "factsAreValidated(address,uint8[])": {
+        "params": {
+          "_facts": "The array of uint8 fact ids to be validated",
+          "_token": "The token"
+        },
+        "returns": {
+          "_0": "bool"
+        }
+      },
+      "factsToFactSet(uint8[])": {
+        "details": "Does not validate that any particular fact values exist",
+        "params": {
+          "_facts": "The array of fact values to convert into a fact set"
+        },
+        "returns": {
+          "factSet": "factSet"
+        }
+      },
+      "owner()": {
+        "details": "Returns the address of the current owner."
+      },
+      "renounceOwnership()": {
+        "details": "Leaves the contract without owner. It will not be possible to call `onlyOwner` functions anymore. Can only be called by the current owner. NOTE: Renouncing ownership will leave the contract without an owner, thereby removing any functionality that is only available to the owner."
+      },
+      "tokenIsRegistered(address)": {
+        "params": {
+          "_token": "The token"
+        },
+        "returns": {
+          "_0": "bool"
+        }
+      },
+      "tokenIsValidERC20(address)": {
+        "params": {
+          "_token": "The token"
+        },
+        "returns": {
+          "_0": "bool"
+        }
+      },
+      "transferOwnership(address)": {
+        "details": "Transfers ownership of the contract to a new account (`newOwner`). Can only be called by the current owner."
+      }
+    },
+    "title": "ERC20Registry",
+    "version": 1
+  },
+  "userdoc": {
+    "events": {
+      "ERC20FactCreated(uint8,string)": {
+        "notice": "Emitted when a new fact is created."
+      },
+      "ERC20ValidatedFacts(address,uint256)": {
+        "notice": "Emitted when a token's set of validated facts is added/updated"
+      }
+    },
+    "kind": "user",
+    "methods": {
+      "addUpdateERC20(address,uint256)": {
+        "notice": "Add or update an ERC20 token with its set of validated facts."
+      },
+      "createFact(string)": {
+        "notice": "Create a new fact available for all tokens. Existing tokens will have a `false` value for this fact, which can be updated by governance actions"
+      },
+      "factSetIsValidated(address,uint256)": {
+        "notice": "Return whether a token conforms to a set of facts. This method returns true if the token conforms to all flagged facts: any facts above and beyond the flagged ones are not accounted for and wil have no impact on the result."
+      },
+      "factSetToFacts(uint256)": {
+        "notice": "Convert an factSet value into an array of fact values"
+      },
+      "factsAreValidated(address,uint8[])": {
+        "notice": "Return whether specific facts have all been validated for a token."
+      },
+      "factsToFactSet(uint8[])": {
+        "notice": "Convert an array of fact values into a single factSet value"
+      },
+      "highwaterFact()": {
+        "notice": "High-water mark for the highest fact id (factSet bit-position)"
+      },
+      "tokenFacts(address)": {
+        "notice": "Maps a token address to its set of validated facts"
+      },
+      "tokenIsRegistered(address)": {
+        "notice": "Convenience method to determine if a particular token exists in this registry"
+      },
+      "tokenIsValidERC20(address)": {
+        "notice": "Convenience method to determine if a particular token is a valid ERC20 implementation"
+      }
+    },
+    "notice": "Tokenscope ERC20 token registry",
+    "version": 1
+  },
+  "storageLayout": {
+    "storage": [
+      {
+        "astId": 7,
+        "contract": "contracts/ERC20Registry.sol:ERC20Registry",
+        "label": "_owner",
+        "offset": 0,
+        "slot": "0",
+        "type": "t_address"
+      },
+      {
+        "astId": 142,
+        "contract": "contracts/ERC20Registry.sol:ERC20Registry",
+        "label": "highwaterFact",
+        "offset": 20,
+        "slot": "0",
+        "type": "t_uint8"
+      },
+      {
+        "astId": 147,
+        "contract": "contracts/ERC20Registry.sol:ERC20Registry",
+        "label": "tokenFacts",
+        "offset": 0,
+        "slot": "1",
+        "type": "t_mapping(t_address,t_uint256)"
+      }
+    ],
+    "types": {
+      "t_address": {
+        "encoding": "inplace",
+        "label": "address",
+        "numberOfBytes": "20"
+      },
+      "t_mapping(t_address,t_uint256)": {
+        "encoding": "mapping",
+        "key": "t_address",
+        "label": "mapping(address => uint256)",
+        "numberOfBytes": "32",
+        "value": "t_uint256"
+      },
+      "t_uint256": {
+        "encoding": "inplace",
+        "label": "uint256",
+        "numberOfBytes": "32"
+      },
+      "t_uint8": {
+        "encoding": "inplace",
+        "label": "uint8",
+        "numberOfBytes": "1"
+      }
+    }
+  }
+}

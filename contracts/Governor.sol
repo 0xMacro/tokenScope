@@ -33,7 +33,7 @@ contract Governor {
     // variables
     mapping(address => bool) public members;
     uint128 public totalMembers;
-    uint128 public quorum = 75;
+    uint128 public quorum;
 
     struct Receipt {
         bool hasVoted;
@@ -72,7 +72,10 @@ contract Governor {
     error AlreadyMember();
     error NotAMember();
 
-    constructor(address[] memory foundingMembers) {
+    constructor(uint128 _quorum, address[] memory foundingMembers) {
+        quorum = _quorum;
+        emit QuorumChanged(0, _quorum);
+
         uint256 length = foundingMembers.length;
         for (uint256 i = 0; i < length; ++i) {
             _addMember(foundingMembers[i]);
@@ -271,7 +274,7 @@ contract Governor {
         view
         returns (bool)
     {
-        if (proposal.forVotes * 100 >= totalMembers * 75) return true;
+        if (proposal.forVotes * 100 >= totalMembers * quorum) return true;
         else return false;
     }
 
