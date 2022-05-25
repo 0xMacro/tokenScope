@@ -42,7 +42,7 @@ contract ClientTokenScope{
     ///         Uses "factSetIsValidated" function of TokenScope to query multiple facts from registery using an integer corresponding to binary represantation of bits
     /// @param token token address
     /// @return bool value whether the token is a valid ERC20
-    function isPausableValidERC20(address token) public view returns(bool){
+    function isValidERC20usingFactSet(address token) public view returns(bool){
         // 1 << 1 = 10 = 2th fact in the registiry => IS_VALID_ERC20
         return registiry.factSetIsValidated(token,  1 << 1);
     } 
