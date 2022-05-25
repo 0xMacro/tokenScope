@@ -20,11 +20,8 @@ contract Governor {
         uint128 start;
         uint128 end;
         // slot 2
-        address proposer;
         bool executed;
-        // slot 3
         uint128 forVotes;
-        uint128 againstVotes;
         mapping(address => Receipt) receipts;
     }
 
@@ -42,25 +39,39 @@ contract Governor {
     //////////////////////////////////////////////////////////////*/
 
     // events
-    event newMember(address add);
+    event NewMember(address add);
+    event MembershipRemoved(address add);
 
     // errrors
     error NotAllowed();
     error AlreadyMember();
     error NotAMember();
 
-    constructor(address firstCitizen) {
-        totalMembers++;
-        members[firstCitizen] = true;
-        emit newMember(firstCitizen);
+    constructor(address[] memory foundingFathers) {
+        uint256 length = foundingFathers.length;
+        for (uint256 i = 0; i < length; ++i) {
+            _addMember(foundingFathers[i]);
+        }
     }
 
     function addMember(address _newMember) external {
         if (msg.sender != address(this)) revert NotAllowed();
+        _addMember(_newMember);
+    }
+
+    function _addMember(address _newMember) internal {
         if (members[_newMember] != false) revert AlreadyMember();
         totalMembers++;
         members[_newMember] = true;
-        emit newMember(_newMember);
+        emit NewMember(_newMember);
+    }
+
+    function removeMember(address _oldMember) external {
+        if (msg.sender != address(this)) revert NotAllowed();
+        isMember(_oldMember);
+        totalMembers--;
+        members[_oldMember] = false;
+        emit MembershipRemoved(_oldMember);
     }
 
     function isMember(address _add) internal view {
@@ -95,8 +106,9 @@ contract Governor {
 
         if (p.executed) return ProposalState.Executed;
         if (p.start == 0) revert InvalidProposal("NotDefined");
-        if (p.end >= block.timestamp) return ProposalState.Active;
         if (_isSucceeded(p)) return ProposalState.Succeeded;
+        if (p.end >= block.timestamp) return ProposalState.Active;
+
         return ProposalState.Defeated;
     }
 
@@ -132,7 +144,6 @@ contract Governor {
         uint256 _end = _start + VOTING_PERIOD;
         proposals[proposalId].start = uint128(_start);
         proposals[proposalId].end = uint128(_end);
-        proposals[proposalId].proposer = msg.sender;
 
         emit ProposalCreated(
             proposalId,
@@ -203,7 +214,6 @@ contract Governor {
         if (receipt.hasVoted) revert AlreadyVoted();
 
         if (support) proposal.forVotes++;
-        else proposal.againstVotes++;
 
         receipt.hasVoted = true;
         receipt.support = support;
@@ -216,7 +226,7 @@ contract Governor {
         view
         returns (bool)
     {
-        if (proposal.forVotes >= (totalMembers * 90) / 100) return true;
+        if (proposal.forVotes * 100 >= totalMembers * 75) return true;
         else return false;
     }
 }
