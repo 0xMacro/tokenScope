@@ -1,12 +1,11 @@
 //SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.0;
 
-import "../ERC20Registry.sol";
+import "../interfaces/IRegistryClient.sol";
 import "./MockPair.sol";
 
 contract MockFactory {
-    ERC20Registry private immutable registry;
-
+    address public immutable registry;
     address public feeTo;
     address public feeToSetter;
 
@@ -22,7 +21,7 @@ contract MockFactory {
 
     constructor(address _feeToSetter, address _registry) {
         feeToSetter = _feeToSetter;
-        registry = ERC20Registry(_registry);
+        registry = _registry;
     }
 
     function allPairsLength() external view returns (uint256) {
@@ -42,11 +41,11 @@ contract MockFactory {
 
         //---------------------------TokenScope----------------------------------//
         require(
-            registry.tokenIsValidERC20(tokenA),
+            IRegistryClient(registry).tokenIsValidERC20(tokenA),
             "Token A is not a valid ERC20 implementation"
         );
         require(
-            registry.tokenIsValidERC20(tokenB),
+            IRegistryClient(registry).tokenIsValidERC20(tokenB),
             "Token B is not a valid ERC20 implementation"
         );
         //---------------------------TokenScope----------------------------------//
