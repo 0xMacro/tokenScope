@@ -5,7 +5,7 @@ import "../ERC20Registry.sol";
 import "./MockPair.sol";
 
 contract MockFactory {
-    ERC20Registry private immutable registiry;
+    ERC20Registry private immutable registry;
 
     address public feeTo;
     address public feeToSetter;
@@ -20,9 +20,9 @@ contract MockFactory {
         uint256
     );
 
-    constructor(address _feeToSetter, address _registiry) {
+    constructor(address _feeToSetter, address _registry) {
         feeToSetter = _feeToSetter;
-        registiry = ERC20Registry(_registiry);
+        registry = ERC20Registry(_registry);
     }
 
     function allPairsLength() external view returns (uint256) {
@@ -42,11 +42,11 @@ contract MockFactory {
 
         //---------------------------TokenScope----------------------------------//
         require(
-            registiry.tokenIsValidERC20(tokenA),
+            registry.tokenIsValidERC20(tokenA),
             "Token A is not a valid ERC20 implementation"
         );
         require(
-            registiry.tokenIsValidERC20(tokenB),
+            registry.tokenIsValidERC20(tokenB),
             "Token B is not a valid ERC20 implementation"
         );
         //---------------------------TokenScope----------------------------------//
