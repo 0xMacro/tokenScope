@@ -3,7 +3,6 @@ import { ethers } from "hardhat";
 import { utils, BigNumber } from "ethers";
 import type { SignerWithAddress } from "@nomiclabs/hardhat-ethers/dist/src/signer-with-address";
 import type { Governor } from "../typechain/Governor";
-import { Governer } from "../typechain/Governer";
 
 describe("Governor ", function () {
   let governor: Governor;
