@@ -1,8 +1,8 @@
 import { expect } from "chai";
 import { ethers } from "hardhat";
+import { utils, BigNumber } from "ethers";
 import type { SignerWithAddress } from "@nomiclabs/hardhat-ethers/dist/src/signer-with-address";
 import type { Governor } from "../typechain/Governor";
-import { BigNumber } from "ethers";
 import { Governer } from "../typechain/Governer";
 
 describe("Governor ", function () {
@@ -121,5 +121,25 @@ describe("Governor ", function () {
     );
     expect(await governor.members(citizen5.address)).to.eq(false);
     expect(await governor.totalMembers()).to.eq(4);
+  });
+
+  it("Change Quorum ", async function () {
+    expect(governor.changeQuorum(80)).revertedWith("NotAllowed()");
+    const calldata =
+      "0xa12802cf" +
+      "0000000000000000000000000000000000000000000000000000000000000032";
+    expect(await governor.quorum()).to.eq(75);
+    const proposalId = await governor.hashProposal(
+      [governor.address],
+      [0],
+      [calldata],
+      "changeQ50"
+    );
+    await governor.propose([governor.address], [0], [calldata], "changeQ50");
+    await governor.castVote(proposalId, true);
+    await governor.connect(citizen2).castVote(proposalId, true);
+    await governor.connect(citizen3).castVote(proposalId, true);
+    await governor.execute([governor.address], [0], [calldata], "changeQ50");
+    expect(await governor.quorum()).to.eq(50);
   });
 });

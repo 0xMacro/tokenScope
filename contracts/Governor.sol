@@ -20,6 +20,7 @@ pragma solidity ^0.8.0;
 // We don't keep track of against votes as it doesn't matter, in our case.
 // Because if for votes are > 75 out of 100, against votes are always going to be less than that
 // Inactive vote is a superset of against vote, which additionally allows one to change their vote to true
+// Once quorum is reached, voting is closed.
 
 // Proposal Execution
 // Anyone can execute a proposal once passed
@@ -28,9 +29,11 @@ pragma solidity ^0.8.0;
 contract Governor {
     // constants
     uint256 public constant VOTING_PERIOD = 30 days;
+
     // variables
     mapping(address => bool) public members;
-    uint256 public totalMembers;
+    uint128 public totalMembers;
+    uint128 public quorum = 75;
 
     struct Receipt {
         bool hasVoted;
@@ -130,7 +133,6 @@ contract Governor {
         if (p.start == 0) revert InvalidProposal("NotDefined");
         if (_isSucceeded(p)) return ProposalState.Succeeded;
         if (p.end >= block.timestamp) return ProposalState.Active;
-
         return ProposalState.Defeated;
     }
 
@@ -232,10 +234,12 @@ contract Governor {
 
     // events
     event VoteCast(address indexed voter, uint256 proposalId, bool support);
+    event QuorumChanged(uint128 old, uint128 new_);
 
     // errors
     error VotingClosed();
     error AlreadyVoted();
+    error InvalidQuorum();
 
     function castVote(uint256 proposalId, bool support) external {
         return _castVote(msg.sender, proposalId, support);
@@ -269,5 +273,13 @@ contract Governor {
     {
         if (proposal.forVotes * 100 >= totalMembers * 75) return true;
         else return false;
+    }
+
+    function changeQuorum(uint128 _newQuorum) external {
+        if (msg.sender != address(this)) revert NotAllowed();
+        if (_newQuorum > 100) revert InvalidQuorum();
+
+        emit QuorumChanged(quorum, _newQuorum);
+        quorum = _newQuorum;
     }
 }
