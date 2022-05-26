@@ -1,5 +1,3 @@
-
-
 <p align="center">
   <img width="500" src="https://user-images.githubusercontent.com/46760063/170324411-ea99e442-6237-4a5d-b1a0-d39fb0d039b4.png"></br>
   <strong>Built for Macro Internal Hackathon</strong></br>
@@ -7,19 +5,25 @@
 </p>
 
 ## Idea
-Problem and solution
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+An on-chain, queryable, registry of ERC-20 token audited behaviors.
 
 ## Implementation
-Details
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+1. **ERC20Registry:** registry storing audited facts for ERC20s.  
+3. **Governor:** governance module responsible to govern registry.
+4. **Demo Client Contract** 
 
-## Deployed Addresses
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+## Deployments
 
-## Intergration (Client)
-Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
- 
+- ERC20Registry</br>
+  https://goerli.etherscan.io/address/0xCCB7f9a06fCfbDd8A4F0C3F177648aa696eb5506#code
+  
+- Governor</br>
+  https://goerli.etherscan.io/address/0x390c1D7aE1B18183a6E0b59d6D5AE7Efd53b76fE#code
+
+- MockFactory</br>
+  https://goerli.etherscan.io/address/0xeD20E56B9EEb8Fc4d076256C2F8B7372b376f265#code
+
+
 ## Detailed Spec
 https://www.notion.so/0xmacro/TokenScope-Spec-b6c8cbfd4be94796a11e371e0d94b9fb
 
