@@ -1,7 +1,7 @@
 //SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.0;
 
-import "../interfaces/IRegistryClient.sol";
+import "../interfaces/IERC20RegistryClient.sol";
 import "./MockPair.sol";
 
 contract MockFactory {
@@ -41,11 +41,11 @@ contract MockFactory {
 
         //---------------------------TokenScope----------------------------------//
         require(
-            IRegistryClient(registry).tokenIsValidERC20(tokenA),
+            IERC20RegistryClient(registry).tokenIsValidERC20(tokenA) == OptionalBool.TRUE,
             "Token A is not a valid ERC20 implementation"
         );
         require(
-            IRegistryClient(registry).tokenIsValidERC20(tokenB),
+            IERC20RegistryClient(registry).tokenIsValidERC20(tokenB) == OptionalBool.TRUE,
             "Token B is not a valid ERC20 implementation"
         );
         //---------------------------TokenScope----------------------------------//
