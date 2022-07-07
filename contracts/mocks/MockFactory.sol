@@ -1,7 +1,7 @@
 //SPDX-License-Identifier: Unlicense
 pragma solidity ^0.8.0;
 
-import "../interfaces/IRegistryClient.sol";
+import "../interfaces/IERC20RegistryClient.sol";
 import "./MockPair.sol";
 
 contract MockFactory {
@@ -41,17 +41,20 @@ contract MockFactory {
 
         //---------------------------TokenScope----------------------------------//
         require(
-            IRegistryClient(registry).tokenIsValidERC20(tokenA),
-            "Token A is not a valid ERC20 implementation"
+            IERC20RegistryClient(registry).tokenIsValidERC20(tokenA) ==
+                OptionalBool.TRUE,
+            "tokenA not ERC20"
         );
         require(
-            IRegistryClient(registry).tokenIsValidERC20(tokenB),
-            "Token B is not a valid ERC20 implementation"
+            IERC20RegistryClient(registry).tokenIsValidERC20(tokenB) ==
+                OptionalBool.TRUE,
+            "tokenB not ERC20"
         );
         //---------------------------TokenScope----------------------------------//
 
         bytes memory bytecode = type(MockPair).creationCode;
         bytes32 salt = keccak256(abi.encodePacked(token0, token1));
+        // solhint-disable-next-line no-inline-assembly
         assembly {
             pair := create2(0, add(bytecode, 32), mload(bytecode), salt)
         }

@@ -5,7 +5,6 @@ pragma solidity ^0.8.0;
 /// @notice Mock contract to showcase TokenScope features
 
 contract MockPair {
-    constructor() {}
-
+    // solhint-disable-next-line no-empty-blocks
     function initialize(address token1, address token2) public {}
 }

@@ -1,8 +1,15 @@
 import { SignerWithAddress } from "@nomiclabs/hardhat-ethers/signers";
 import { expect } from "chai";
 import { ethers } from "hardhat";
+import { BigNumber } from "ethers";
 import { beforeEach } from "mocha";
 import { ERC20Registry, MockFactory } from "../typechain";
+import {
+  OptionalBool,
+  IS_REGISTERED,
+  IS_VALID_ERC20
+} from "./utils";
+
 
 describe("MockFactory", function () {
   let owner: SignerWithAddress;
@@ -33,31 +40,26 @@ describe("MockFactory", function () {
 
   describe("Create new Pool", () => {
     it("does not allow invalid tokens in pool", async () => {
-      // TokenA factSet is 2:
-      // - IS_VALID_ERC20 = 1 << 1
-      await registry.addUpdateERC20(tokenAAddress, 2);
+      // Set only TokenA as a valid ERC20
+      await registry.addUpdateERC20(tokenAAddress, [IS_VALID_ERC20], [OptionalBool.TRUE]);
 
       // TokenA is valid ERC20, TokenB is not
-      expect(await registry.tokenIsValidERC20(tokenAAddress)).to.equal(true);
-      expect(await registry.tokenIsValidERC20(tokenBAddress)).to.equal(false);
+      expect(await registry.tokenIsValidERC20(tokenAAddress)).to.equal(OptionalBool.TRUE);
+      expect(await registry.tokenIsValidERC20(tokenBAddress)).to.equal(OptionalBool.UNSET);
 
       // createPair should fail, TokenB is not a valid ERC20
       await expect(
         factory.createPair(tokenAAddress, tokenBAddress)
-      ).to.be.revertedWith("Token B is not a valid ERC20 implementation");
+      ).to.be.revertedWith("tokenB not ERC20");
     });
 
     it("creates pool for valid token pair", async () => {
-      // TokenA factSet is 2:
-      // - IS_VALID_ERC20 = 1 << 1
-      await registry.addUpdateERC20(tokenAAddress, 2);
+      // Set both tokens as valid ERC20
+      await registry.addUpdateERC20(tokenAAddress, [IS_VALID_ERC20], [OptionalBool.TRUE]);
+      await registry.addUpdateERC20(tokenBAddress, [IS_VALID_ERC20], [OptionalBool.TRUE]);
 
-      // TokenB factSet is 2:
-      // - IS_VALID_ERC20 = 1 << 1
-      await registry.addUpdateERC20(tokenBAddress, 2);
-
-      expect(await registry.tokenIsValidERC20(tokenAAddress)).to.equal(true);
-      expect(await registry.tokenIsValidERC20(tokenBAddress)).to.equal(true);
+      expect(await registry.tokenIsValidERC20(tokenAAddress)).to.equal(OptionalBool.TRUE);
+      expect(await registry.tokenIsValidERC20(tokenBAddress)).to.equal(OptionalBool.TRUE);
 
       // createPair should be executed, both tokens are valid ERC20
       await expect(factory.createPair(tokenAAddress, tokenBAddress)).to.emit(
