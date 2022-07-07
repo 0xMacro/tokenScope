@@ -135,6 +135,7 @@ contract Governor {
         if (p.executed) return ProposalState.Executed;
         if (p.start == 0) revert InvalidProposal("NotDefined");
         if (_isSucceeded(p)) return ProposalState.Succeeded;
+		// solhint-disable-next-line not-rely-on-time
         if (p.end >= block.timestamp) return ProposalState.Active;
         return ProposalState.Defeated;
     }
@@ -180,6 +181,7 @@ contract Governor {
             calldatas,
             description
         );
+		// solhint-disable-next-line not-rely-on-time
         uint256 _start = block.timestamp;
         uint256 _end = _start + VOTING_PERIOD;
         proposals[proposalId].start = uint128(_start);
@@ -219,11 +221,13 @@ contract Governor {
 
         // Interaction
         for (uint256 i = 0; i < targets.length; ++i) {
+			// solhint-disable-next-line avoid-low-level-calls
             (bool success, bytes memory returndata) = targets[i].call{
                 value: values[i]
             }(calldatas[i]);
             if (!success) {
                 if (returndata.length == 0) revert RevertForCall(proposalId, i);
+				// solhint-disable-next-line no-inline-assembly
                 assembly {
                     revert(add(32, returndata), mload(returndata))
                 }

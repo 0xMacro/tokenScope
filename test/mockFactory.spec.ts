@@ -50,7 +50,7 @@ describe("MockFactory", function () {
       // createPair should fail, TokenB is not a valid ERC20
       await expect(
         factory.createPair(tokenAAddress, tokenBAddress)
-      ).to.be.revertedWith("Token B is not a valid ERC20 implementation");
+      ).to.be.revertedWith("tokenB not ERC20");
     });
 
     it("creates pool for valid token pair", async () => {
