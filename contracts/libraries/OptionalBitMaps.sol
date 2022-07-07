@@ -13,7 +13,6 @@ enum OptionalBool {
 }
 
 library OptionalBitMaps {
-
     using BitMaps for BitMaps.BitMap;
 
     struct OptionalBitMap {
@@ -34,14 +33,18 @@ library OptionalBitMaps {
         return (val == OptionalBool.TRUE);
     }
 
-    function get(OptionalBitMap storage bitmap, uint256 index) internal view returns (OptionalBool) {
+    function get(OptionalBitMap storage bitmap, uint256 index)
+        internal
+        view
+        returns (OptionalBool)
+    {
         if (bitmap.isSetBits.get(index) == false) {
-			/// UNSET flag is true, so return UNSET
+            /// UNSET flag is true, so return UNSET
             return OptionalBool.UNSET;
         } else {
-			/// UNSET flag is false, so return the bool value
-			return _boolToOptionalBool(bitmap.boolBits.get(index));
-		}
+            /// UNSET flag is false, so return the bool value
+            return _boolToOptionalBool(bitmap.boolBits.get(index));
+        }
     }
 
     function setTo(
@@ -49,18 +52,18 @@ library OptionalBitMaps {
         uint256 index,
         OptionalBool value
     ) internal {
-		/// @dev capture present UNSET flag state
-		/// so we only update the UNSET bit if necessary
-		bool isSet = bitmap.isSetBits.get(index);
+        /// @dev capture present UNSET flag state
+        /// so we only update the UNSET bit if necessary
+        bool isSet = bitmap.isSetBits.get(index);
 
         if (value == OptionalBool.UNSET) {
-			if (isSet) {
-				bitmap.isSetBits.setTo(index, false);
-			}
+            if (isSet) {
+                bitmap.isSetBits.setTo(index, false);
+            }
         } else {
-			if (!isSet) {
-				bitmap.isSetBits.setTo(index, true);
-			}
+            if (!isSet) {
+                bitmap.isSetBits.setTo(index, true);
+            }
             bitmap.boolBits.setTo(index, _optionalBoolToBool(value));
         }
     }

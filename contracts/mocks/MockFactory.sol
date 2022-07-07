@@ -41,18 +41,20 @@ contract MockFactory {
 
         //---------------------------TokenScope----------------------------------//
         require(
-            IERC20RegistryClient(registry).tokenIsValidERC20(tokenA) == OptionalBool.TRUE,
+            IERC20RegistryClient(registry).tokenIsValidERC20(tokenA) ==
+                OptionalBool.TRUE,
             "tokenA not ERC20"
         );
         require(
-            IERC20RegistryClient(registry).tokenIsValidERC20(tokenB) == OptionalBool.TRUE,
+            IERC20RegistryClient(registry).tokenIsValidERC20(tokenB) ==
+                OptionalBool.TRUE,
             "tokenB not ERC20"
         );
         //---------------------------TokenScope----------------------------------//
 
         bytes memory bytecode = type(MockPair).creationCode;
         bytes32 salt = keccak256(abi.encodePacked(token0, token1));
-		// solhint-disable-next-line no-inline-assembly
+        // solhint-disable-next-line no-inline-assembly
         assembly {
             pair := create2(0, add(bytecode, 32), mload(bytecode), salt)
         }

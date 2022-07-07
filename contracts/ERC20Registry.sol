@@ -9,24 +9,24 @@ import "./libraries/OptionalBitMaps.sol";
 /// @notice Tokenscope ERC20 token registry
 contract ERC20Registry is Ownable {
     // This contract registers facts for different ERC20 addresses.
-	// A fact is an OptionalBool value, with possible values of `UNSET', 'TRUE', 'FALSE'.
-	// The default value is 'UNSET', meaning the fact has either not been evaluated,
-	// or is not definitively 'TRUE' or 'FALSE'.
-	// Facts are registered to ERC20 token addresses: altering registry facts is accomplished
-	// through governance.
+    // A fact is an OptionalBool value, with possible values of `UNSET', 'TRUE', 'FALSE'.
+    // The default value is 'UNSET', meaning the fact has either not been evaluated,
+    // or is not definitively 'TRUE' or 'FALSE'.
+    // Facts are registered to ERC20 token addresses: altering registry facts is accomplished
+    // through governance.
     //
     // Each fact has to components:
-	// - Fact ID: a unique uint256 value per fact (e.g. 0, 1, ...)
-	// - Fact Code: a human-readable codes (e.g. "IS_VALID_ERC20")
+    // - Fact ID: a unique uint256 value per fact (e.g. 0, 1, ...)
+    // - Fact Code: a human-readable codes (e.g. "IS_VALID_ERC20")
     //
-	// Fact IDs are automatically created in sequential order.
-	// Fact Codes are not stored on chain: they are emitted in events
-	// with their associated fact id upon creation.
+    // Fact IDs are automatically created in sequential order.
+    // Fact Codes are not stored on chain: they are emitted in events
+    // with their associated fact id upon creation.
     //
     // This contract is only aware of the current highwater fact id,
     // which defines the list of valid fact ids as 0 through highwater inclusive.
-	//
-	// This contract is not intended to be used with upgradeable ERC20 tokens.
+    //
+    // This contract is not intended to be used with upgradeable ERC20 tokens.
 
     using OptionalBitMaps for OptionalBitMaps.OptionalBitMap;
 
@@ -47,15 +47,20 @@ contract ERC20Registry is Ownable {
 
     /// Emitted when a token's set of validated facts is added/updated
     /// @param token The token
-	/// @param tokenAdded Boolean flag if this token was newly added to the registry.  False means a token's existing registration was updated.
+    /// @param tokenAdded Boolean flag if this token was newly added to the registry.  False means a token's existing registration was updated.
     /// @param factIds The factIds that were validated
     /// @param values The values corresponding to each factId
-    event ERC20TokenAddUpdate(address indexed token, bool tokenAdded, uint256[] factIds, OptionalBool[] values);
+    event ERC20TokenAddUpdate(
+        address indexed token,
+        bool tokenAdded,
+        uint256[] factIds,
+        OptionalBool[] values
+    );
 
     error TokenNotRegistered();
     error MaxFactsReached();
     error InvalidFact(uint256 factId, uint256 highwaterFactId);
-	error InvalidArity();
+    error InvalidArity();
 
     /// @param _governor The owning Governance contract
     constructor(address _governor) {
@@ -67,7 +72,6 @@ contract ERC20Registry is Ownable {
         emit ERC20FactCreated(IS_REGISTERED, "IS_REGISTERED");
         emit ERC20FactCreated(IS_VALID_ERC20, "IS_VALID_ERC20");
     }
-
 
     /*/////////////////////////////////////////////////////////////////////////////////
         Registry Administration
@@ -86,30 +90,30 @@ contract ERC20Registry is Ownable {
     /// @param _factIds The factIds to be set
     /// @param _values The OptionalBool values corresponding to the _factIds
     /// @dev _values will overwrite the existing _factIds for this _token.
-    function addUpdateERC20(address _token, uint256[] calldata _factIds, OptionalBool[] calldata _values)
-        external
-        onlyOwner
-    {
-		if (_factIds.length != _values.length) revert InvalidArity();
+    function addUpdateERC20(
+        address _token,
+        uint256[] calldata _factIds,
+        OptionalBool[] calldata _values
+    ) external onlyOwner {
+        if (_factIds.length != _values.length) revert InvalidArity();
 
         OptionalBitMaps.OptionalBitMap storage _tokenFacts = tokenFacts[_token];
 
+        // Mark as registered if this is a new token
+        bool tokenAdded = _tokenFacts.get(IS_REGISTERED) != OptionalBool.TRUE;
+        if (tokenAdded) {
+            _tokenFacts.setTrue(IS_REGISTERED);
+        }
 
-		// Mark as registered if this is a new token
-		bool tokenAdded = _tokenFacts.get(IS_REGISTERED) != OptionalBool.TRUE;
-		if (tokenAdded) {
-			_tokenFacts.setTrue(IS_REGISTERED);
-		}
-
-        for( uint256 i = 0; i < _factIds.length; ++i) {
-			// If there is an invalid factId present, we cautiously revert the entire transaction
-            if(_factIds[i] > highwaterFactId) revert InvalidFact(_factIds[i], highwaterFactId);
+        for (uint256 i = 0; i < _factIds.length; ++i) {
+            // If there is an invalid factId present, we cautiously revert the entire transaction
+            if (_factIds[i] > highwaterFactId)
+                revert InvalidFact(_factIds[i], highwaterFactId);
             _tokenFacts.setTo(_factIds[i], _values[i]);
         }
 
         emit ERC20TokenAddUpdate(_token, tokenAdded, _factIds, _values);
     }
-
 
     /*/////////////////////////////////////////////////////////////////////////////////
         Registry Querying
@@ -134,7 +138,7 @@ contract ERC20Registry is Ownable {
     }
 
     /// Query a series of facts for a single token. Returns an array of OptionalBool values
-	/// which correspond to the supplied _factIds.
+    /// which correspond to the supplied _factIds.
     /// @param _token The token
     /// @param _factIds The array of fact ids to be validated
     /// @return OptionalBool[]
@@ -149,7 +153,7 @@ contract ERC20Registry is Ownable {
         // We can skip looking up facts if the token is not registered.
         // In this case all facts will be the default value of OptionalBool.UNSET
         if (_tokenFacts.get(IS_REGISTERED) == OptionalBool.TRUE) {
-            for(uint256 i = 0; i < _factIds.length; ++i) {
+            for (uint256 i = 0; i < _factIds.length; ++i) {
                 results[i] = _tokenFacts.get(_factIds[i]);
             }
         }
