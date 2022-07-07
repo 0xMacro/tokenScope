@@ -58,7 +58,6 @@ contract ERC20Registry is Ownable {
     );
 
     error TokenNotRegistered();
-    error MaxFactsReached();
     error InvalidFact(uint256 factId, uint256 highwaterFactId);
     error InvalidArity();
 
